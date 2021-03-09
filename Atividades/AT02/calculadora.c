@@ -1,27 +1,19 @@
 #include <stdio.h>
 
 int soma(int x, int y){
-
    return x + y;
-
 };
 
 int subtracao(int x, int y){
-
    return x - y;
-
 };
 
 int multiplicacao(int x, int y){
-
    return x * y;
-
 };
 
 int divisao(int x, int y){
-
     return x / y;
-    
 };
 
 int main(void){
@@ -69,6 +61,6 @@ int main(void){
     default:
         printf("Opcao incorreta\n");
     }
-
+    
     return 0;
 }
