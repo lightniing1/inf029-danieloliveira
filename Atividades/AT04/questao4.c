@@ -2,27 +2,33 @@
 
 //https://github.com/renatoln/INF029/blob/master/listas/Lista1-Funcoes.pdf
 
-int ler3Numeros(){
+int * ler3Numeros(int num1, int num2, int num3){
 
-    int arr[3];
+    static int array[3];
 
-    for (int i = 0; i < 3; i++){
-        printf("Insira o numero %d: ", i+1);
-        scanf("%d", &arr[i]);
-    }
+    array[0] = num1;
+    array[1] = num2;
+    array[2] = num3;
 
-    printf("Os 3 numeros sao: ");
-
-    for (int i = 0; i < 3; i++){
-        printf("%d ", arr[i]);
-    }
-
-    return 0;
+    return array;
 }
 
 int main(void) {
 
-    ler3Numeros();
+    int num1, num2, num3;
+    
+    printf("Qual o primeiro numero: ");
+    scanf("%d", &num1);
+    printf("Qual o segundo numero: ");
+    scanf("%d", &num2);
+    printf("Qual o terceiro numero: ");
+    scanf("%d", &num3);
+
+    int* result = ler3Numeros(num1, num2, num3);
+
+    for (int i = 0; i < 3; i++){
+        printf("%d ", result[i]);
+    }
 
     return 0;
 }
