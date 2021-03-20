@@ -22,7 +22,7 @@ int main(void){
 
     printf("Calculadora\n");
     printf("Selecione uma opcao:\n");
-    printf("1 - Soma\n2 - Subtracao\n3 - Multiplicacao\n4 - Divisao\n0 - Sair\n");
+    printf("1 - Soma\n2 - Subtrair\n3 - Multiplicar\n4 - Dividir\n0 - Sair\n");
 
     scanf("%d", &selecao);
 
