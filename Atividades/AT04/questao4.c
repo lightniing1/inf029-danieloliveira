@@ -4,7 +4,7 @@
 
 int * ler3Numeros(int num1, int num2, int num3){
 
-    static int array[3];
+    static int array[3]; //Usa static para que o valores não sejam destruidos ao acabar a execucao da funcao
 
     array[0] = num1;
     array[1] = num2;
@@ -24,7 +24,7 @@ int main(void) {
     printf("Qual o terceiro numero: ");
     scanf("%d", &num3);
 
-    int* result = ler3Numeros(num1, num2, num3);
+    int* result = ler3Numeros(num1, num2, num3); //Cria ponteiro para retornar o que tem na funcao. Acessa o array da funcao
 
     for (int i = 0; i < 3; i++){
         printf("%d ", result[i]);
