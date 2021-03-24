@@ -1,10 +1,11 @@
 #include <stdio.h>
 
-#define MAX_NOME 30
-#define MAX_DATA_N 10
-#define MAX_CPF 12
+#define MAX_NOME 50
+#define MAX_DATA_N 12
+#define MAX_CPF 15
 
 //https://github.com/renatoln/INF029/blob/master/listas/Lista1-Funcoes.pdf
+
 
 typedef struct
 {
@@ -12,12 +13,16 @@ typedef struct
     char dataNascimento[MAX_DATA_N];
     char cpf[MAX_CPF];
     char sexo;
+    char erro[MAX_NOME];
 
 } DadosCliente;
 
-int validaNome (char nome[]){
 
-    for(int i = 0; i < 22; i++){
+int validaNome (char nome[]){
+	
+	int i;
+	
+    for(i = 0; i < 22; i++){
         if (nome[20] != '\0'){
             return 1;
         } else {
@@ -37,12 +42,14 @@ int validaSexo (char sexo){
 
 int validaCPF (char CPF[]){
 
-    char vCPF[15];
+    int vCPF[11];
+    int digito_1 = 0;
+    int digito_2 = 0;
     
     int i, j = 0;
 
-    for(i = 0; i < 15; i++){
-        vCPF[i] = CPF[j];
+    for(i = 0; i < 11; i++){
+        vCPF[i] = CPF[j] - '0';
         j++;
         if (CPF[j] == '.' || CPF[j] == '-'){
             j = j + 1;
@@ -51,8 +58,39 @@ int validaCPF (char CPF[]){
 
     //Colocar aqui função para validar o CPF
     
-    return 0;
+    j = 10;
+    for (i = 0; i < 9; i++){
+        digito_1 += vCPF[i] * j;
+        j--;
+    }
+
+    if (digito_1 % 11 < 2){
+        digito_1 = 0;
+    } else {
+        digito_1 = 11 - (digito_1 % 11);
+    }
+
+    if (vCPF[9] != digito_1){
+        return 1;
+    } else {
+        j = 11;
+        for (i = 0; i < 10; i++){
+            digito_2 += vCPF[i] * j;
+            j--;
+        }
+        if (digito_2 % 11 < 0){
+            digito_2 = 0;
+        } else {
+            digito_2 = 11 - (digito_2 % 11);
+            if (vCPF[10] =! digito_2){
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
 }
+
 
 int validaNascimento (char nasc[]){
 
@@ -101,7 +139,7 @@ int validaNascimento (char nasc[]){
 		}
 	}
     
-    //Converte os arrays de string para int
+    //Converte os arrays de string para int. Tem jeito melhor mas agora não da.
 
     int i_ano, i_mes, i_dia;
 
@@ -118,7 +156,7 @@ int validaNascimento (char nasc[]){
         bissexto = 0;
     };
 
-    //Verifica se o dia, mes e ano
+    //Verifica se o dia, mes e ano | Um switch seria melhor aqui
 
     if ( (i_mes == 1 || i_mes == 3 || i_mes == 5 || i_mes == 7 || i_mes == 8 || i_mes == 10 || i_mes == 12) && i_dia > 0 && i_dia <= 31 ){
         ///printf("Mes Valida (1)");
@@ -143,41 +181,117 @@ int validaNascimento (char nasc[]){
 
 DadosCliente Cadastro (char nome[], char data[], char cpf[], char sexo){
     DadosCliente Dado;
-        for (int i=0; i<MAX_NOME; i++){
+
+    char Erro_nome[] = "Erro: Nome com mais de 20 caracteres";
+    char Erro_cpf[] = "Erro: CPF Invalido";
+    char Erro_data[] = "Erro: Data invalida";
+    char Erro_sexo[] = "Erro: Sexo invalido";
+	
+	int i;
+	
+    if (validaNome(nome) != 0){
+        for (i=0; i<MAX_NOME; i++){
+            Dado.erro[i] = Erro_nome[i];
+        }
+    } else {
+        for (i=0; i<21; i++){
             Dado.nome[i] = nome[i];
-        };
-        for (int i=0; i<MAX_DATA_N; i++){
-            Dado.dataNascimento[i] = data[i];
-        };
-        for (int i=0; i<MAX_CPF; i++){
+        }
+        //Dado.erro[0] = '\0';
+    };
+        
+    if (validaCPF(cpf) != 0){
+        for (i=0; i<MAX_NOME; i++){
+            Dado.erro[i] = Erro_cpf[i];
+        }
+    } else {
+        for (i=0; i<MAX_CPF; i++){
             Dado.cpf[i] = cpf[i];
-        };
+        }
+        //Dado.erro[0] = '\0';
+    };
+
+    if (validaNascimento(data) != 0){
+        for (i=0; i<MAX_NOME; i++){
+            Dado.erro[i] = Erro_data[i];
+        }
+    } else {
+        for (i=0; i<MAX_DATA_N; i++){
+            Dado.dataNascimento[i] = data[i];
+        }
+        //Dado.erro[0] = '\0';
+    };
+
+    if (validaSexo(sexo) != 0){
+        for (i=0; i<MAX_NOME; i++){
+            Dado.erro[i] = Erro_sexo[i];
+        }
+    } else {
         Dado.sexo = sexo;
+       // Dado.erro[0] = '\0';
+    };    
+
     return Dado;
+
+   /*
+    for (int i=0; i<MAX_NOME; i++){
+        Dado.nome[i] = nome[i];
+        if (nome[i] = '\0'){
+            break;
+        }
+    };
+    for (int i=0; i<MAX_DATA_N; i++){
+        Dado.dataNascimento[i] = data[i];
+        if (data[i] = '\0'){
+            break;
+        }
+    };
+    for (int i=0; i<MAX_CPF; i++){
+        Dado.cpf[i] = cpf[i];
+        if (cpf[i] = '\0'){
+            break;
+        }
+    };
+    
+    Dado.sexo = sexo;
+
+    return Dado;
+    */
 }
 
+void Stdin(void)
+{
+    int c = 0;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+    return;
+}
 
 int main(void) {
     
-    char Nome[] = "testetestetesteteste";
-    char DataNascimento[] = "29/02/2021";
-    char Cpf[] = "068.343.445-43";
+    char Nome[MAX_NOME];
+    char DataNascimento[MAX_DATA_N];
+    char Cpf[MAX_CPF];
     char Sexo;
+    
+    printf("Digite o nome: ");
+    fgets(Nome, MAX_NOME, stdin);
+    Stdin(); 
+    printf("Digite a data de nascimento: ");
+    fgets(DataNascimento, MAX_DATA_N, stdin);
+    Stdin();
+    printf("Digite o CPF: ");
+    fgets(Cpf, MAX_CPF, stdin);
+    Stdin();
+    printf("Digite o Sexo: ");
+    scanf(" %c", &Sexo);
+    
 
-    //printf("Digite o nome: ");
-    //fgets(Nome, MAX_NOME, stdin);
-    //printf("Digite a data de nascimento: ");
-    //fgets(DataNascimento, MAX_DATA_N, stdin);
-    //printf("Digite o CPF: ");
-    //fgets(Cpf, MAX_CPF, stdin);
-    //printf("Digite o Sexo: ");
-    //scanf(" %c", &Sexo);
+    DadosCliente D;
+    D = Cadastro(Nome, DataNascimento, Cpf, Sexo);
 
-    validaNascimento(DataNascimento);
+    //printf("%s\n", D.erro);
 
-    //DadosCliente D;
-    //D = Cadastro(Nome, DataNascimento, Cpf, Sexo);
-    //printf("Nome: %sData de Nascimento: %s\nCPF: %s\nSexo: %c", D.nome, D.dataNascimento, D.cpf, D.sexo);
+    printf("Nome: %s\nData de Nascimento: %s\nCPF: %s\nSexo: %c", D.nome, D.dataNascimento, D.cpf, D.sexo);
 
     return 0;
     
