@@ -141,11 +141,25 @@ int validaNascimento (char nasc[]){
     
     //Converte os arrays de string para int. Tem jeito melhor mas agora não da.
 
-    int i_ano, i_mes, i_dia;
+	int i_ano = 0;
+	int i_dia = 0;
+	int i_mes = 0;
 
-    sscanf(ano,"%d", &i_ano);
-    sscanf(mes,"%d", &i_mes);
-    sscanf(data,"%d", &i_dia);
+    for (i = 0; i < 4; i++){
+        i_ano = i_ano * 10 + (ano[i] - '0');
+    }
+    
+    for (i = 0; i < 2; i++){
+        i_dia = i_dia * 10 + (data[i] - '0');
+    }
+    
+    for (i = 0; i < 2; i++){
+        i_mes = i_mes * 10 + (mes[i] - '0');
+    }
+
+    //sscanf(ano,"%d", &i_ano);
+    //sscanf(mes,"%d", &i_mes);
+    //sscanf(data,"%d", &i_dia);
 
     //Verifica se é ano bissexto
     int bissexto;
@@ -197,7 +211,6 @@ DadosCliente Cadastro (char nome[], char data[], char cpf[], char sexo){
         for (i=0; i<21; i++){
             Dado.nome[i] = nome[i];
         }
-        //Dado.erro[0] = '\0';
     };
         
     if (validaCPF(cpf) != 0){
@@ -208,7 +221,6 @@ DadosCliente Cadastro (char nome[], char data[], char cpf[], char sexo){
         for (i=0; i<MAX_CPF; i++){
             Dado.cpf[i] = cpf[i];
         }
-        //Dado.erro[0] = '\0';
     };
 
     if (validaNascimento(data) != 0){
@@ -219,7 +231,6 @@ DadosCliente Cadastro (char nome[], char data[], char cpf[], char sexo){
         for (i=0; i<MAX_DATA_N; i++){
             Dado.dataNascimento[i] = data[i];
         }
-        //Dado.erro[0] = '\0';
     };
 
     if (validaSexo(sexo) != 0){
@@ -228,35 +239,9 @@ DadosCliente Cadastro (char nome[], char data[], char cpf[], char sexo){
         }
     } else {
         Dado.sexo = sexo;
-       // Dado.erro[0] = '\0';
     };    
 
     return Dado;
-
-   /*
-    for (int i=0; i<MAX_NOME; i++){
-        Dado.nome[i] = nome[i];
-        if (nome[i] = '\0'){
-            break;
-        }
-    };
-    for (int i=0; i<MAX_DATA_N; i++){
-        Dado.dataNascimento[i] = data[i];
-        if (data[i] = '\0'){
-            break;
-        }
-    };
-    for (int i=0; i<MAX_CPF; i++){
-        Dado.cpf[i] = cpf[i];
-        if (cpf[i] = '\0'){
-            break;
-        }
-    };
-    
-    Dado.sexo = sexo;
-
-    return Dado;
-    */
 }
 
 void Stdin(void)
@@ -285,11 +270,10 @@ int main(void) {
     printf("Digite o Sexo: ");
     scanf(" %c", &Sexo);
     
-
     DadosCliente D;
     D = Cadastro(Nome, DataNascimento, Cpf, Sexo);
 
-    //printf("%s\n", D.erro);
+    printf("%s\n", D.erro);
 
     printf("Nome: %s\nData de Nascimento: %s\nCPF: %s\nSexo: %c", D.nome, D.dataNascimento, D.cpf, D.sexo);
 
