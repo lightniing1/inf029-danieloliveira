@@ -7,39 +7,81 @@
 #define TAM_DATA_NASC 11
 #define TAM_LISTA 200
 
+//Structs
 typedef struct {
     char nome[20];
     char sexo;
     char dataNascimento[11];
     char CPF[12];
     int matricula;
-} CadastroAluPro;
+} CadastroAluPro; //Stuct para cadastro de alunos e professores
 
+typedef struct
+{
+    char nome_disciplina;
+    int cod_disciplina;
+    int semestre_disciplina;
+    CadastroAluPro professor;
+} Disciplinas;
+
+
+//Array das structs | Será necessário zerar esses arrays
 CadastroAluPro listaAlunos[TAM_LISTA];
 CadastroAluPro listaProfs[TAM_LISTA];
+Disciplinas listaDisciplinas[TAM_LISTA];
 
-/*
-CadastroAluPro Cadastro (char nome[], char sexo, char dataNascimento[], char CPF[], char tipo) {
-    
-    int matricula;
-
-    CadastroAluPro C;
-        strcpy(C.nome, nome);
-        strcpy(C.CPF, CPF);
-        strcpy(C.dataNascimento, dataNascimento);
-        C.sexo = sexo;
-
-    return C;
-};
-*/
-
+//Funções
 void RegistraAluno(CadastroAluPro aluno){
 
-    static int q_alunos = 0;
-    
-    //Colocar loop aqui
+    static int qtd_alunos = 0;
+    static int matriculaAluno = 100001;
+    int i = 0;
+
+    //Falta cadastrar outros dados (No momento está cadastrando apenas o nome)
+
+    strcpy(listaAlunos[qtd_alunos].nome, aluno.nome);
+    listaAlunos[qtd_alunos].matricula = matriculaAluno;
+
+    qtd_alunos++;
+    matriculaAluno++;
+
+    /*
+    for (i = 0; i < q_alunos; i++){
+        printf("Aluno %d: %s", i, listaAlunos[i].nome);
+    }
+    */
+};
+
+void RegistraProfessor(CadastroAluPro professor){
+
+    static int qtd_professor = 0;
+    static int matriculaProfessor = 1001;
+    int i = 0;
+
+    //Falta cadastrar outros dados (No momento está cadastrando apenas o nome)
+    strcpy(listaProfs[qtd_professor].nome, professor.nome);
+    listaProfs[qtd_professor].matricula = matriculaProfessor;
+
+    qtd_professor++;
+    matriculaProfessor++;
 
 };
+
+void RegistroDisciplina(Disciplinas disciplina){
+    static int qtd_disciplina = 0;
+    static int cod_disciplina = 11;
+    int i = 0;
+
+    //Falta cadastrar outros dados (Nome professor)
+    strcpy(listaDisciplinas[qtd_disciplina].nome_disciplina, disciplina.nome_disciplina);
+    listaDisciplinas[qtd_disciplina].cod_disciplina = cod_disciplina;
+    listaDisciplinas[qtd_disciplina].semestre_disciplina = disciplina.semestre_disciplina;
+
+    //Lista nome dos professores cadastrados para registrar na disciplina aqui
+
+    qtd_disciplina++;
+    cod_disciplina++;
+}
 
 int selecaoCadastro(){
 
@@ -66,12 +108,13 @@ int mainCadastro(void){
     char CPF[12]; 
     char tipo;
     
-    int termina = 0;
+    int termina;
     int i = 0;    
 
     while(!sair)
     {
         menu = selecaoCadastro();
+        termina = 0;
 
         switch (menu)
         {
@@ -100,8 +143,31 @@ int mainCadastro(void){
             break;
 
         case 2:
+            while(!termina){
+                
+                CadastroAluPro CadastroProfessor[i];
+
+                printf("Nome\n");
+                scanf("%s", CadastroProfessor[i].nome);
+                /*printf("Sexo\n");
+                scanf("%c", &sexo);
+                printf("Data\n");
+                scanf("%s", dataNascimento);
+                printf("CPF\n");
+                scanf("%s", CPF);*/
+
+                RegistraAluno(CadastroProfessor[i]);
+
+                i++;
+
+                printf("Continua?\n");
+                scanf("%d", &termina);
+            }
             break;
         
+        case 3:
+            break;
+
         case 0:
             sair = 1;
             
