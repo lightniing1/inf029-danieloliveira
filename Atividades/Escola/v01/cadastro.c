@@ -7,28 +7,10 @@
 #define TAM_DATA_NASC 11
 #define TAM_LISTA 200
 
-//Structs
-typedef struct {
-    char nome[20];
-    char sexo;
-    char dataNascimento[11];
-    char CPF[12];
-    int matricula;
-} CadastroAluPro; //Stuct para cadastro de alunos e professores
-
-typedef struct
-{
-    char nome_disciplina;
-    int cod_disciplina;
-    int semestre_disciplina;
-    CadastroAluPro professor;
-} Disciplinas;
-
-
 //Array das structs | Será necessário zerar esses arrays
-CadastroAluPro listaAlunos[TAM_LISTA];
-CadastroAluPro listaProfs[TAM_LISTA];
-Disciplinas listaDisciplinas[TAM_LISTA];
+//CadastroAluPro listaAlunos[TAM_LISTA];
+//CadastroAluPro listaProfs[TAM_LISTA];
+//Disciplinas listaDisciplinas[TAM_LISTA];
 
 //Funções
 void RegistraAluno(CadastroAluPro aluno){
@@ -68,6 +50,7 @@ void RegistraProfessor(CadastroAluPro professor){
 };
 
 void RegistroDisciplina(Disciplinas disciplina){
+
     static int qtd_disciplina = 0;
     static int cod_disciplina = 11;
     int i = 0;
@@ -83,6 +66,71 @@ void RegistroDisciplina(Disciplinas disciplina){
     cod_disciplina++;
 }
 
+int Pesquisa(int matricula){ 
+
+    //Pesquisa binaria
+    int inicio = 0;
+    int fim = TAM_LISTA;
+    int posicao = -1;
+    int meio;
+    int array_busca;
+
+    //Define se é aluno, professor ou disciplina sendo procurado
+    if (matricula > 10 && matricula < 1000){
+        array_busca = listaDisciplinas[meio].cod_disciplina;
+    } else {
+        if (matricula > 1000 && matricula < 100000){
+            array_busca = listaProfs[meio].matricula;
+        } else {
+            array_busca = listaAlunos[meio].matricula;
+        }
+    }
+    
+    //Faz a pesquisa
+    while(inicio <= fim){
+        meio = fim + (inicio - fim) / 2;
+        if (array_busca == matricula){
+            posicao = meio;
+            break;
+        } else if (array_busca < matricula){
+            inicio = meio + 1;
+        } else if (array_busca > matricula){
+            fim = meio - 1;
+        }
+    }
+
+    return -1;
+    
+}
+
+int AtualizaAluPro(int posicao, int tipo, CadastroAluPro alunoprofessor){
+
+    int array_atualiza;
+
+    if (tipo == 0){
+        strcpy(listaAlunos[posicao].nome, alunoprofessor.nome);
+        strcpy(listaAlunos[posicao].dataNascimento, alunoprofessor.dataNascimento);
+        strcpy(listaAlunos[posicao].CPF, alunoprofessor.CPF);
+        listaAlunos[posicao].sexo = alunoprofessor.sexo;
+    } else {
+        strcpy(listaProfs[posicao].nome, alunoprofessor.nome);
+        strcpy(listaProfs[posicao].dataNascimento, alunoprofessor.dataNascimento);
+        strcpy(listaProfs[posicao].CPF, alunoprofessor.CPF);
+        listaProfs[posicao].sexo = alunoprofessor.sexo; 
+        }
+
+    return 0;
+};
+
+int AtualizaDisciplina (int posicao, Disciplinas disciplina){
+
+    strcpy(listaDisciplinas[posicao].nome_disciplina, disciplina.nome_disciplina);
+    listaDisciplinas[posicao].semestre_disciplina = disciplina.semestre_disciplina;
+    listaDisciplinas[posicao].matricula_professor = disciplina.matricula_professor;
+
+    return 0;
+}
+
 int selecaoCadastro(){
 
     int selecaoCadastro;
@@ -91,7 +139,7 @@ int selecaoCadastro(){
     printf("Modulo Cadastro\n");
     printf("**********************\n");
     printf("O que deseja acessar?\n");
-    printf(" 1 - Cadastrar aluno\n 2 - Cadastrar Professor\n 3 - Cadastrar Disciplina\n 4 - Atualizar\n 5 - Excluir\n");
+    printf(" 1 - Cadastrar aluno\n 2 - Cadastrar professor\n 3 - Cadastrar disciplina\n 4 - Atualizar aluno\n 5 - Atualizar professor\n 6 - Atualizar disciplina\n 7 - Excluir\n");
     scanf("%d", &selecaoCadastro);
 
     return selecaoCadastro;
