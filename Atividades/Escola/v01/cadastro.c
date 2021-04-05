@@ -16,7 +16,7 @@
 void RegistraAluno(CadastroAluPro aluno){
 
     static int qtd_alunos = 0;
-    static int matriculaAluno = 100001;
+    static int matriculaAluno = 100000;
     int i = 0;
 
     //Falta cadastrar outros dados (No momento está cadastrando apenas o nome)
@@ -27,9 +27,9 @@ void RegistraAluno(CadastroAluPro aluno){
     qtd_alunos++;
     matriculaAluno++;
 
-    /*
-    for (i = 0; i < q_alunos; i++){
-        printf("Aluno %d: %s", i, listaAlunos[i].nome);
+   /* 
+    for (i = 0; i < qtd_alunos; i++){
+        printf("Aluno %d: %d - %s\n", i, listaAlunos[i].matricula, listaAlunos[i].nome);
     }
     */
 };
@@ -37,7 +37,7 @@ void RegistraAluno(CadastroAluPro aluno){
 void RegistraProfessor(CadastroAluPro professor){
 
     static int qtd_professor = 0;
-    static int matriculaProfessor = 1001;
+    static int matriculaProfessor = 1000;
     int i = 0;
 
     //Falta cadastrar outros dados (No momento está cadastrando apenas o nome)
@@ -52,7 +52,7 @@ void RegistraProfessor(CadastroAluPro professor){
 void RegistroDisciplina(Disciplinas disciplina){
 
     static int qtd_disciplina = 0;
-    static int cod_disciplina = 11;
+    static int cod_disciplina = 10;
     int i = 0;
 
     //Falta cadastrar outros dados (Nome professor)
@@ -68,42 +68,55 @@ void RegistroDisciplina(Disciplinas disciplina){
 
 int Pesquisa(int matricula){ 
 
-    //Pesquisa binaria
     int inicio = 0;
     int fim = TAM_LISTA;
     int posicao = -1;
     int meio;
     int array_busca;
+    int i;
 
     //Define se é aluno, professor ou disciplina sendo procurado
     if (matricula > 10 && matricula < 1000){
-        array_busca = listaDisciplinas[meio].cod_disciplina;
-    } else {
-        if (matricula > 1000 && matricula < 100000){
-            array_busca = listaProfs[meio].matricula;
-        } else {
-            array_busca = listaAlunos[meio].matricula;
+        for (i = 0; i < TAM_LISTA; i++){
+            if (listaDisciplinas[i].cod_disciplina == matricula){
+                posicao = i;
+            }
         }
-    }
+    } else if (matricula > 1000 && matricula < 100000){
+            for (i = 0; i < TAM_LISTA; i++){
+                if (listaProfs[i].matricula == matricula){
+                    posicao = i;
+                }
+            }
+        } else {
+            for (i = 0; i < TAM_LISTA; i++){
+                if (listaAlunos[i].matricula == matricula){
+                    posicao = i;
+				}
+			}
+		}
+    return posicao;
     
-    //Faz a pesquisa
+}        
+    /*
+    //Faz a pesquisa binaria
+
     while(inicio <= fim){
         meio = fim + (inicio - fim) / 2;
         if (array_busca == matricula){
             //posicao = meio;
             return meio;
-            break;
         } else if (array_busca < matricula){
             inicio = meio + 1;
         } else if (array_busca > matricula){
             fim = meio - 1;
         }
     }
-
+    
     return -1;
     
 }
-
+*/
 int AtualizaAluPro(int posicao, int tipo, CadastroAluPro alunoprofessor){
 
     //int array_atualiza;
@@ -132,11 +145,20 @@ int AtualizaDisciplina (int posicao, Disciplinas disciplina){
     return 0;
 }
 
-int ExcluiAluPro (int posicao, int matricula){
+int ExcluiAluPro (int posicao){
     
-    for (int i = posicao-1; i<TAM_LISTA; i++){
-       strcpy(listaAlunos[posicao].nome, listaAlunos[posicao+1].nome);
+    int i;
+
+    for (i = posicao; i<TAM_LISTA-1; i++){
+       strcpy(listaAlunos[i].nome, listaAlunos[i+1].nome);
+       listaAlunos[i].matricula = listaAlunos[i+1].matricula;
        // Colocar o resto dos dados aqui!
+    }
+    
+    //Teste
+
+    for (i = 0; i < 5; i++){
+        printf("Aluno %d: %d - %s\n", i, listaAlunos[i].matricula, listaAlunos[i].nome);
     }
 
     return 0;
@@ -169,161 +191,171 @@ int mainCadastro(void){
     char tipo;
     
     int termina;
-    int i = 0;    
+    int i = 0; 
+
+    int matricula = 0;
+    int posicaoMatricula = 0;
+    int posicaoDisciplina = 0;
+
 
     while(!sair)
     {
         menu = selecaoCadastro();
         termina = 0;
 
-        switch (menu)
-        {
-        case 1:
+        switch (menu){
+            case 1:
+                while(!termina){
+                    
+                    CadastroAluPro CadastroAluno[i];
 
-            while(!termina){
+                    printf("Nome\n");
+                    scanf("%s", CadastroAluno[i].nome);
+                    /*printf("Sexo\n");
+                    scanf("%c", &sexo);
+                    printf("Data\n");
+                    scanf("%s", dataNascimento);
+                    printf("CPF\n");
+                    scanf("%s", CPF);*/
+
+                    RegistraAluno(CadastroAluno[i]);
+
+                    i++;
+
+                    printf("Continua?\n");
+                    scanf("%d", &termina);
+                }  
+                break;
+
+            case 2:
+                while(!termina){
+                    
+                    CadastroAluPro CadastroProfessor[i];
+
+                    printf("Nome\n");
+                    scanf("%s", CadastroProfessor[i].nome);
+                    /*printf("Sexo\n");
+                    scanf("%c", &sexo);
+                    printf("Data\n");
+                    scanf("%s", dataNascimento);
+                    printf("CPF\n");
+                    scanf("%s", CPF);*/
+
+                    RegistraProfessor(CadastroProfessor[i]);
+
+                    i++;
+
+                    printf("Continua?\n");
+                    scanf("%d", &termina);
+                }
+                break;
+            
+            case 3:
+            {
+                while(!termina){
+                    
+                    Disciplinas CadastroDisciplica[i];
+
+                    printf("Nome\n");
+                    scanf("%s", CadastroDisciplica[i].nome_disciplina);
+                    /*printf("Sexo\n");
+                    scanf("%c", &sexo);
+                    printf("Data\n");
+                    scanf("%s", dataNascimento);
+                    printf("CPF\n");
+                    scanf("%s", CPF);*/
+
+                    RegistroDisciplina(CadastroDisciplica[i]);
+
+                    i++;
+
+                    printf("Continua?\n");
+                    scanf("%d", &termina);
+                }
+                break;
+            }
+            case 4:
+            {
+                CadastroAluPro atualizaaluno;
+
+                printf("Digite o numero de matricula\n");
+                scanf("%d", &matricula);
+                posicaoMatricula = Pesquisa(matricula);
+
+                if (posicaoMatricula == -1){
+                    printf("Matricula nao encontrada\n");
+                } else {
+                    printf("Nome\n");
+                    scanf("%s", atualizaaluno.nome);
+                    /*printf("Sexo\n");
+                    scanf("%c", &sexo);
+                    printf("Data\n");
+                    scanf("%s", dataNascimento);
+                    printf("CPF\n");
+                    scanf("%s", CPF);*/
+
+                    AtualizaAluPro(posicaoMatricula, 0, atualizaaluno);
+                }
+                //sair = 1;
+                break;
+            }
+            case 5:
+            {
+                CadastroAluPro atualizaprofessor;
+
+                printf("Digite o numero de matricula\n");
+                scanf("%d", &matricula);
+                posicaoMatricula = Pesquisa(matricula);
+
+                if (posicaoMatricula == -1){
+                    printf("Matricula nao encontrada\n");
+                } else {
+                    printf("Nome\n");
+                    scanf("%s", atualizaprofessor.nome);
+                    /*printf("Sexo\n");
+                    scanf("%c", &sexo);
+                    printf("Data\n");
+                    scanf("%s", dataNascimento);
+                    printf("CPF\n");
+                    scanf("%s", CPF);*/
+
+                    AtualizaAluPro(posicaoMatricula, 1, atualizaprofessor);
+                }
+                break;
+            }
+            case 6:
+
+            {
+                Disciplinas atualizadisciplina;
+
+                printf("Digite o codigo de matricula\n");
+                scanf("%d\n", &matricula);
+
+                posicaoDisciplina = Pesquisa(matricula);
+
+                if (posicaoDisciplina == -1){
+                    printf("Disciplina nao encontrada\n");
+                } else {
+                    printf("Nome\n");
+                    scanf("%s", atualizadisciplina.nome_disciplina);
+                    //FALTA COLOCAR OS OUTROS DADOS
+                    AtualizaDisciplina(posicaoMatricula, atualizadisciplina);
+                }
+                break;
+            }
+            case 7:
+                printf("Digite a matricula ou codigo da disciplina: ");
+            	scanf("%d", &matricula);
+            	
+            	posicaoMatricula = Pesquisa(matricula);
+            	ExcluiAluPro(posicaoMatricula);
+            	
+                //Exclui aluno
+                break;
                 
-                CadastroAluPro CadastroAluno[i];
-
-                printf("Nome\n");
-                scanf("%s", CadastroAluno[i].nome);
-                /*printf("Sexo\n");
-                scanf("%c", &sexo);
-                printf("Data\n");
-                scanf("%s", dataNascimento);
-                printf("CPF\n");
-                scanf("%s", CPF);*/
-
-                RegistraAluno(CadastroAluno[i]);
-
-                i++;
-
-                printf("Continua?\n");
-                scanf("%d", &termina);
-            }  
-            break;
-
-        case 2:
-            while(!termina){
-                
-                CadastroAluPro CadastroProfessor[i];
-
-                printf("Nome\n");
-                scanf("%s", CadastroProfessor[i].nome);
-                /*printf("Sexo\n");
-                scanf("%c", &sexo);
-                printf("Data\n");
-                scanf("%s", dataNascimento);
-                printf("CPF\n");
-                scanf("%s", CPF);*/
-
-                RegistraProfessor(CadastroProfessor[i]);
-
-                i++;
-
-                printf("Continua?\n");
-                scanf("%d", &termina);
+            default:
+                printf("Menu inexistente\n");
             }
-            break;
-        
-        case 3:
-            while(!termina){
-                
-                Disciplinas CadastroDisciplica[i];
-
-                printf("Nome\n");
-                scanf("%s", CadastroDisciplica[i].nome_disciplina);
-                /*printf("Sexo\n");
-                scanf("%c", &sexo);
-                printf("Data\n");
-                scanf("%s", dataNascimento);
-                printf("CPF\n");
-                scanf("%s", CPF);*/
-
-                RegistroDisciplina(CadastroDisciplica[i]);
-
-                i++;
-
-                printf("Continua?\n");
-                scanf("%d", &termina);
-            }
-            break;
-
-        case 4:
-            int posicaoMatricula = 0;
-            int matricula = 0;
-            CadastroAluPro atualizaaluno;
-
-            printf("Digite o numero de matricula\n");
-            scanf("%d", &matricula);
-            posicaoMatricula = Pesquisa(matricula);
-
-            if (posicaoMatricula == -1){
-                printf("Matricula nao encontrada\n");
-            } else {
-                printf("Nome\n");
-                scanf("%s", atualizaaluno.nome);
-                /*printf("Sexo\n");
-                scanf("%c", &sexo);
-                printf("Data\n");
-                scanf("%s", dataNascimento);
-                printf("CPF\n");
-                scanf("%s", CPF);*/
-
-                AtualizaAluPro(posicaoMatricula, 0, atualizaaluno);
-            }
-            //sair = 1;
-            break;
-        
-        case 5:
-            int posicaoMatricula = 0;
-            int matricula = 0;
-            CadastroAluPro atualizaprofessor;
-
-            printf("Digite o numero de matricula\n");
-            scanf("%d", &matricula);
-            posicaoMatricula = Pesquisa(matricula);
-
-            if (posicaoMatricula == -1){
-                printf("Matricula nao encontrada\n");
-            } else {
-                printf("Nome\n");
-                scanf("%s", atualizaprofessor.nome);
-                /*printf("Sexo\n");
-                scanf("%c", &sexo);
-                printf("Data\n");
-                scanf("%s", dataNascimento);
-                printf("CPF\n");
-                scanf("%s", CPF);*/
-
-                AtualizaAluPro(posicaoMatricula, 1, atualizaprofessor);
-            }
-            break;
-        
-        case 6:
-            int posicaoDisciplina = 0;
-            int matricula = 0;
-            Disciplinas atualizadisciplina;
-
-            printf("Digite o codigo de matricula\n");
-            scanf("%d\n", &matricula);
-
-            posicaoDisciplina = Pesquisa(matricula);
-
-            if (posicaoDisciplina == -1){
-                printf("Disciplina nao encontrada\n");
-            } else {
-                printf("Nome\n");
-                scanf("%s", atualizadisciplina.nome_disciplina);
-                //FALTA COLOCAR OS OUTROS DADOS
-                AtualizaDisciplina(posicaoMatricula, atualizadisciplina);
-            }
-            break;
-        
-        case 7:
-            //Exclui aluno
-        default:
-            printf("Menu inexistente\n");
-        }
     }
 
     return 0;
