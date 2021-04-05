@@ -11,6 +11,7 @@ typedef struct {
     char dataNascimento[11];
     char CPF[12];
     int matricula;
+    int cod_disciplina;
 } CadastroAluPro; //Stuct para cadastro de alunos e professores
 
 typedef struct
@@ -19,6 +20,7 @@ typedef struct
     int cod_disciplina;
     int semestre_disciplina;
     int matricula_professor;
+    int matriculas_alunos[40];
 } Disciplinas;
 
 CadastroAluPro listaAlunos[TAM_LISTA];
@@ -27,9 +29,9 @@ Disciplinas listaDisciplinas[TAM_LISTA];
 
 int mainCadastro();
 int selecaoCadastro();
-void RegistraAluno(CadastroAluPro aluno);
-void RegistraProfessor(CadastroAluPro professor);
-void RegistroDisciplina(Disciplinas disciplina);
+int RegistraAluno(CadastroAluPro aluno);
+int RegistraProfessor(CadastroAluPro professor);
+int RegistroDisciplina(Disciplinas disciplina);
 int Pesquisa(int matricula);
 int AtualizaAluPro(int posicao, int tipo, CadastroAluPro alunoprofessor);
 int AtualizaDisciplina (int posicao, Disciplinas disciplina);
