@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "cadastro.h"
+#include "relatorio.h"
 
 int SelecaoMenu(){
 
@@ -29,6 +30,7 @@ int main(void)
             break;
 
         case 2:
+            mainRelatorio();
             break;
         
         case 0:

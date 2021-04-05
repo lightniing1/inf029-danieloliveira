@@ -3,5 +3,6 @@
 
 //Coloca apenas os títulos da função ali
 
+int mainRelatorio(void);
 
 #endif
