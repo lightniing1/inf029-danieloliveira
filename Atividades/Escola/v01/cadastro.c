@@ -173,7 +173,7 @@ int selecaoCadastro(){
     printf("Modulo Cadastro\n");
     printf("**********************\n");
     printf("O que deseja acessar?\n");
-    printf(" 1 - Cadastrar aluno\n 2 - Cadastrar professor\n 3 - Cadastrar disciplina\n 4 - Atualizar aluno\n 5 - Atualizar professor\n 6 - Atualizar disciplina\n 7 - Excluir\n");
+    printf(" 1 - Cadastrar aluno\n 2 - Cadastrar professor\n 3 - Cadastrar disciplina\n 4 - Atualizar aluno\n 5 - Atualizar professor\n 6 - Atualizar disciplina\n 7 - Excluir\n 0 - Voltar\n");
     scanf("%d", &selecaoCadastro);
 
     return selecaoCadastro;
@@ -352,7 +352,9 @@ int mainCadastro(void){
             	
                 //Exclui aluno
                 break;
-                
+
+            case 0:
+                sair = 1;    
             default:
                 printf("Menu inexistente\n");
             }
