@@ -33,6 +33,15 @@ Disciplinas listar_todas_disciplinas(int posicao){
     return disciplina;
 }
 
+//Vou manter isso em uma função para não perder minha sanidade depois procurando
+CadastroAluPro listar_disciplina_com_alunos (int cod_disciplina, int i){
+    CadastroAluPro aluno;
+        if (listaAlunos[i].cod_disciplina == cod_disciplina){
+            return aluno;
+        }
+
+}
+
 void menuRelatorio(){
 
     printf("*******************\n");
@@ -49,12 +58,13 @@ int mainRelatorio(void){
     int termina;
     int menu;
     int i;
+    int cod_disciplina;
 
     menuRelatorio();
     scanf("%d", &menu);
 
     switch (menu){
-        case 1:
+        case 1://Lista Alunos
         {
             CadastroAluPro aluno;
             printf("Listando alunos...\n");
@@ -66,7 +76,7 @@ int mainRelatorio(void){
             break;
         }
 
-        case 2:
+        case 2://Lista Professores
         {
             CadastroAluPro professor;
             printf("Listando professores...\n");
@@ -77,7 +87,7 @@ int mainRelatorio(void){
             break;
         }
 
-        case 3:
+        case 3://Lista Disciplinas
         {
             Disciplinas disciplina;
             printf("Listando disciplinas...\n");
@@ -86,7 +96,48 @@ int mainRelatorio(void){
                 printf("%s", disciplina.nome_disciplina);
             };
             break;
+        }
+
+        case 4: //Lista uma disciplina com os alunos matriculados
+        {
+            printf("Digite o código da disciplina\n");
+            scanf("%d", &cod_disciplina);
+            if (Pesquisa(cod_disciplina) == -1){
+                printf("Disciplina não encontrada\n");
+                break;
+            } else {
+                printf("Disciplina: %d", cod_disciplina);
+                for(i = 0; i < 5 /*MUDAR AQUI DEPOIS */; i++){
+                    if(listaAlunos[i].cod_disciplina == cod_disciplina){
+                        printf("%s", listaAlunos[i].nome);
+                    }
+                }
+            }
+            break;
         } 
+
+        case 5: //Lista alunos por sexo
+        {
+            printf("Listando alunos por sexo");
+            printf("Masculino(s)");
+            for (i = 0; i < 5; i++){
+                if (listaAlunos[i].sexo == 'M'){
+                    printf("Aluno: %s", listaAlunos[i].nome);
+                }
+            }
+            printf("Feminino(s)");
+            for (i = 0; i < 5; i++){
+                if (listaAlunos[i].sexo == 'F'){
+                    printf("Aluno: %s", listaAlunos[i].nome);
+                }
+            }
+            break;
+        }
+
+        case 6: //Lista alunos ordernados por nome
+        {
+            break;
+        }
         default:
             break;
     }

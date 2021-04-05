@@ -19,8 +19,8 @@ typedef struct
     char nome_disciplina[20];
     int cod_disciplina;
     int semestre_disciplina;
-    int matricula_professor;
-    int matriculas_alunos[40];
+    //int matricula_professor;
+    //int matriculas_alunos[40];
 } Disciplinas;
 
 CadastroAluPro listaAlunos[TAM_LISTA];
@@ -35,6 +35,7 @@ int RegistroDisciplina(Disciplinas disciplina);
 int Pesquisa(int matricula);
 int AtualizaAluPro(int posicao, int tipo, CadastroAluPro alunoprofessor);
 int AtualizaDisciplina (int posicao, Disciplinas disciplina);
+int registra_aluno_professor_disciplina(int posicao, int cod_disciplina, int tipo);
 
 
 #endif

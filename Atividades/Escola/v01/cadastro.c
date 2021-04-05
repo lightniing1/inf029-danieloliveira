@@ -23,6 +23,10 @@ int RegistraAluno(CadastroAluPro aluno){
     //Falta cadastrar outros dados (No momento está cadastrando apenas o nome)
 
     strcpy(listaAlunos[qtd_alunos].nome, aluno.nome);
+    strcpy(listaAlunos[qtd_alunos].CPF, aluno.CPF);
+    strcpy(listaAlunos[qtd_alunos].dataNascimento, aluno.dataNascimento);
+    listaAlunos[qtd_alunos].sexo = aluno.sexo;
+    listaAlunos[qtd_alunos].cod_disciplina = 0;
     listaAlunos[qtd_alunos].matricula = matriculaAluno;
 
     matricula_aluno_atual = matriculaAluno;
@@ -41,6 +45,10 @@ int RegistraProfessor(CadastroAluPro professor){
 
     //Falta cadastrar outros dados (No momento está cadastrando apenas o nome)
     strcpy(listaProfs[qtd_professor].nome, professor.nome);
+    strcpy(listaProfs[qtd_professor].CPF, professor.CPF);
+    strcpy(listaProfs[qtd_professor].dataNascimento, professor.dataNascimento);
+    listaProfs[qtd_professor].sexo = professor.sexo;
+    listaProfs[qtd_professor].cod_disciplina = 0;
     listaProfs[qtd_professor].matricula = matriculaProfessor;
 
     matricula_professor_atual = matriculaProfessor;
@@ -72,7 +80,7 @@ int RegistroDisciplina(Disciplinas disciplina){
     return cod_disciplina_atual;
 }
 
-int registra_aluno_disciplina(int posicao, int cod_disciplina, int tipo){
+int registra_aluno_professor_disciplina(int posicao, int cod_disciplina, int tipo){
 
     if (tipo == 0){
         listaAlunos[posicao].cod_disciplina = cod_disciplina;
@@ -136,7 +144,7 @@ int AtualizaDisciplina (int posicao, Disciplinas disciplina){
 
     strcpy(listaDisciplinas[posicao].nome_disciplina, disciplina.nome_disciplina);
     listaDisciplinas[posicao].semestre_disciplina = disciplina.semestre_disciplina;
-    listaDisciplinas[posicao].matricula_professor = disciplina.matricula_professor;
+    //listaDisciplinas[posicao].matricula_professor = disciplina.matricula_professor;
 
     return 0;
 }
@@ -232,7 +240,7 @@ int mainCadastro(void){
                         if (Pesquisa(cod_disciplina) == -1){
                             printf("Disciplina nao encontrada");
                         } else {
-                            registra_aluno_disciplina(Pesquisa(matricula), cod_disciplina, 0);
+                            registra_aluno_professor_disciplina(Pesquisa(matricula), cod_disciplina, 0);
                         }
                         i++;
                     } else {
