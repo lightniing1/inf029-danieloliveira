@@ -177,6 +177,8 @@ int validaNascimento (char nasc[]){
     }
 }
 
+//FALTA VALIDACAO DE ALGUNS DADOS DAS DISCIPLINAS
+
 void Stdin(void)
 {
     int c = 0;
