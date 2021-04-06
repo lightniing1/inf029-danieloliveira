@@ -58,7 +58,7 @@ int mainRelatorio(void){
 
     int termina;
     int menu;
-    int i;
+    int i, j;
     int cod_disciplina;
 
     menuRelatorio();
@@ -136,7 +136,37 @@ int mainRelatorio(void){
 
         case 6: //Lista alunos ordernados por nome
         {
+            char ListaOrdenada[TAM_LISTA][50];
+            char temporario[TAM_LISTA];
+            
+            //Copia os nomes para não serem influenciados no array original
+            for (i = 0; i < TAM_LISTA; i++){
+                strcpy(ListaOrdenada[i], listaAlunos[i].nome);
+            };
+
+            for(i = 0; i < TAM_LISTA; i++){
+                for (j = i + 1; j < TAM_LISTA; j++){
+                    if(strcmp(ListaOrdenada[i], ListaOrdenada[j] > 0)){ //Compara se algum caractere é diferente. Se for, reordena
+                        //Faz a troca e repete as comparações até que esteja tudo ordernado (Dando zero no strcmp)
+                        strcpy(temporario, ListaOrdenada[i]);
+                        strcpy(ListaOrdenada[i], ListaOrdenada[j]);
+                        strcpy(ListaOrdenada[j], temporario);
+                    }
+                }
+            }
+
+            //Print lista dos alunos
+            printf("Alunos em ordem alfabetica");
+            for (i = 0; i < TAM_LISTA; i++){
+                printf("%s\n", ListaOrdenada[i]);
+            }
+
             break;
+        }
+
+        case 7: //Lista alunos por data de nascimento
+        {
+            
         }
         default:
             break;
