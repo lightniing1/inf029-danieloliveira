@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include "cadastro.h"
+#include "validacao.h"
 #include <string.h>
 
-#define TAM_CPF 10
-#define TAM_NOME 21
-#define TAM_DATA_NASC 11
+#define TAM_CPF 15
+#define TAM_NOME 50
+#define TAM_DATA_NASC 12
 #define TAM_LISTA 200
-
-//Array das structs | Será necessário zerar esses arrays
-//CadastroAluPro listaAlunos[TAM_LISTA];
-//CadastroAluPro listaProfs[TAM_LISTA];
-//Disciplinas listaDisciplinas[TAM_LISTA];
 
 //Funções
 int RegistraAluno(CadastroAluPro aluno){
@@ -28,6 +24,8 @@ int RegistraAluno(CadastroAluPro aluno){
     listaAlunos[qtd_alunos].sexo = aluno.sexo;
     listaAlunos[qtd_alunos].cod_disciplina = 0;
     listaAlunos[qtd_alunos].matricula = matriculaAluno;
+
+    printf("%d - %s", listaAlunos[qtd_alunos].matricula ,listaAlunos[qtd_alunos].nome);
 
     matricula_aluno_atual = matriculaAluno;
     qtd_alunos++;
@@ -191,13 +189,14 @@ int mainCadastro(void){
     int menu;
     int sair = 0;
     
-    char nome[20];
+    char nome[TAM_NOME];
     char sexo;
-    char dataNascimento[11];
-    char CPF[12]; 
+    char dataNascimento[TAM_DATA_NASC];
+    char CPF[TAM_CPF]; 
     char tipo;
     
     int termina;
+    //int valida = 0;
     int i = 0; 
 
     int matricula = 0;
@@ -218,15 +217,42 @@ int mainCadastro(void){
                     
                     CadastroAluPro CadastroAluno[i];
 
-                    printf("Nome\n");
-                    scanf("%s", CadastroAluno[i].nome);
-                    /*printf("Sexo\n");
-                    scanf("%c", &sexo);
-                    printf("Data\n");
-                    scanf("%s", dataNascimento);
-                    printf("CPF\n");
-                    scanf("%s", CPF);*/
+                    Limpa_stdin();
+                    
+                    printf("Digite o nome\n");
+                    fgets(CadastroAluno[i].nome, TAM_NOME, stdin);
+                    if (validaNome(CadastroAluno[i].nome) == 1){
+                        printf("Tamanho máximo do nome e 20 caracteres");
+                        break;
+                    }
 
+                    Limpa_stdin();
+
+                    printf("Digite o Sexo (M - Masculino | F = Feminino | O - Outro\n");
+                    scanf("%c", &CadastroAluno[i].sexo);
+                    if (validaSexo(CadastroAluno[i].sexo) == 1){
+                        printf("Sexo inválido");
+                        break;
+                    };
+
+                    Limpa_stdin();
+
+                    printf("Digite a Data de Nascimento (Formatos aceito: 00/00/0000\n");
+                    fgets(CadastroAluno[i].dataNascimento, TAM_DATA_NASC, stdin);
+                    if (validaNascimento(CadastroAluno[i].dataNascimento) == 1){
+                        printf("Data de nascimento inválida");
+                        break;
+                    };
+
+                    Limpa_stdin();
+
+                    printf("Digite o numero de CPF\n");
+                    fgets(CadastroAluno[i].CPF, TAM_CPF, stdin);
+                    if (validaCPF(CadastroAluno[i].CPF) == 1){
+                        printf("CPF inválido");
+                        break;
+                    };
+                    
                     matricula = RegistraAluno(CadastroAluno[i]);
                     matricula;
 
@@ -247,7 +273,7 @@ int mainCadastro(void){
                         i++;
                     }
 
-                    printf("Continua?\n");
+                    printf("Cadastrar outro aluno? 0 - Sim, 1 - Nao\n");
                     scanf("%d", &termina);
                 }  
                 break;
@@ -307,6 +333,7 @@ int mainCadastro(void){
 
                 printf("Digite o numero de matricula\n");
                 scanf("%d", &matricula);
+                //VALIDAR SE TA NO RANGE DOS ALUNOS
                 posicaoMatricula = Pesquisa(matricula);
 
                 if (posicaoMatricula == -1){
@@ -332,6 +359,7 @@ int mainCadastro(void){
 
                 printf("Digite o numero de matricula\n");
                 scanf("%d", &matricula);
+                //VALIDAR SE TA NO RANGE DOS PROFESSORES
                 posicaoMatricula = Pesquisa(matricula);
 
                 if (posicaoMatricula == -1){
@@ -357,7 +385,7 @@ int mainCadastro(void){
 
                 printf("Digite o codigo de matricula\n");
                 scanf("%d\n", &matricula);
-
+                //VALIDAR SE TA NO RANGE DAS DISCIPLINAS
                 posicaoDisciplina = Pesquisa(matricula);
 
                 if (posicaoDisciplina == -1){

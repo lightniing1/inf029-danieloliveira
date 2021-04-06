@@ -6,10 +6,10 @@
 
 //Structs
 typedef struct {
-    char nome[20];
+    char nome[22];
     char sexo;
-    char dataNascimento[11];
-    char CPF[12];
+    char dataNascimento[12];
+    char CPF[15];
     int matricula;
     int cod_disciplina;
 } CadastroAluPro; //Stuct para cadastro de alunos e professores
@@ -26,6 +26,8 @@ typedef struct
 CadastroAluPro listaAlunos[TAM_LISTA];
 CadastroAluPro listaProfs[TAM_LISTA];
 Disciplinas listaDisciplinas[TAM_LISTA];
+
+//char nome[] = "00000000000000000000";
 
 int mainCadastro();
 int selecaoCadastro();

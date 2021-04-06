@@ -18,6 +18,7 @@ int main(void)
 {
     int menu;
     int sair = 0;
+    int i = 0;
 
     while(!sair)
     {

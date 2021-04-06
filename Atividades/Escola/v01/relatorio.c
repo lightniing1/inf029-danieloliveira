@@ -9,16 +9,17 @@ CadastroAluPro listar_todos_alu_pro(int posicao, int tipo){
         strcpy(alu_pro.nome, listaAlunos[posicao].nome);
         //strcpy(alu_pro.CPF, listaAlunos[posicao].CPF);
         //strcpy(alu_pro.dataNascimento, listaAlunos[posicao].dataNascimento);
-        //listaAlunos[posicao].matricula = alu_pro.matricula;
-        //listaAlunos[posicao].sexo = alu_pro.sexo;
-        listaAlunos[posicao].cod_disciplina = alu_pro.cod_disciplina;
+        //alu_pro.matricula = listaAlunos[posicao].matricula;
+        //alu_pro.sexo = listaAlunos[posicao].sexo;
+        alu_pro.cod_disciplina = listaAlunos[posicao].cod_disciplina;
+
     } else {
         strcpy(alu_pro.nome, listaProfs[posicao].nome);
         //strcpy(alu_pro.CPF, listaProfs[posicao].CPF);
         //strcpy(alu_pro.dataNascimento, listaProfs[posicao].dataNascimento);
-        //listaProfs[posicao].matricula = alu_pro.matricula;
-        //listaProfs[posicao].sexo = alu_pro.sexo;
-        listaProfs[posicao].cod_disciplina = alu_pro.cod_disciplina;
+        //alu_pro.matricula = listaProfs[posicao].matricula;
+        //alu_pro.sexo = listaProfs[posicao].sexo;
+         alu_pro.cod_disciplina = listaProfs[posicao].cod_disciplina;
     }
     return alu_pro;
 }
@@ -26,9 +27,9 @@ CadastroAluPro listar_todos_alu_pro(int posicao, int tipo){
 Disciplinas listar_todas_disciplinas(int posicao){
     Disciplinas disciplina;
         strcpy(disciplina.nome_disciplina, listaDisciplinas[posicao].nome_disciplina);
-        //listaDisciplinas[posicao].cod_disciplina = disciplina.cod_disciplina;
-        //listaDisciplinas[posicao].matricula_professor = disciplina.matricula_professor;
-        //listaDisciplinas[posicao].semestre_disciplina = disciplina.semestre_disciplina;
+        //disciplina.cod_disciplina = listaDisciplinas[posicao].cod_disciplina;
+        //disciplina.matricula_professor = listaDisciplinas[posicao].matricula_professor;
+        //disciplina.semestre_disciplina = listaDisciplinas[posicao].semestre_disciplina;
 
     return disciplina;
 }
@@ -70,8 +71,7 @@ int mainRelatorio(void){
             printf("Listando alunos...\n");
             for (i = 0; i < 5 /* MUDAR AQUI DEPOIS */; i++){
                 aluno = listar_todos_alu_pro(i, 0);
-                printf("%s", aluno.nome);
-                printf("%d", aluno.cod_disciplina);
+                printf("%s - %d\n", aluno.nome, aluno.cod_disciplina);
             };
             break;
         }

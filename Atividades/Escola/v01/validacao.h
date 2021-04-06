@@ -5,6 +5,6 @@ int validaNome (char nome[]);
 int validaSexo (char sexo);
 int validaCPF (char CPF[]);
 int validaNascimento (char nasc[]);
-void Stdin(void);
+void Limpa_stdin(void);
 
 #endif

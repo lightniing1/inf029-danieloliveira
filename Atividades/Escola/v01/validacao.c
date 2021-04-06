@@ -8,7 +8,7 @@ int validaNome (char nome[]){
 	int i;
 	
     for(i = 0; i < 22; i++){
-        if (nome[20] != '\0'){
+        if (strlen(nome) > 20){
             return 1;
         } else {
             return 0;
@@ -40,8 +40,6 @@ int validaCPF (char CPF[]){
             j = j + 1;
         }
     }
-
-    //Colocar aqui função para validar o CPF
     
     j = 10;
     for (i = 0; i < 9; i++){
@@ -92,17 +90,17 @@ int validaNascimento (char nasc[]){
         j++;
         if (nasc[j] == '.' || nasc[j] == '-' || nasc[j] == '/'){
             j = j + 1;
-        }
-    }    
+        };
+    };    
 
+    j = 0;
     for (i = 0; i < 3; i++){
         if (i==2){
             break;
         } else {
         	data[i] = vNasc[i];
-		}
-
-    }
+		};
+    };
 
 	j = 0;
     for (; i < 5; i++){
@@ -111,8 +109,8 @@ int validaNascimento (char nasc[]){
         } else {
         	mes[j] = vNasc[i];
         	j++;
-		}
-    }
+		};
+    };
     
     j = 0;
     for (; i < 9; i++){
@@ -121,10 +119,10 @@ int validaNascimento (char nasc[]){
         } else {
         	ano[j] = vNasc[i];
         	j++;
-		}
-	}
+		};
+	};
     
-    //Converte os arrays de string para int. Tem jeito melhor mas agora não da.
+    //Converte os arrays de string para int.
 
 	int i_ano = 0;
 	int i_dia = 0;
@@ -132,15 +130,15 @@ int validaNascimento (char nasc[]){
 
     for (i = 0; i < 4; i++){
         i_ano = i_ano * 10 + (ano[i] - '0');
-    }
+    };
     
     for (i = 0; i < 2; i++){
         i_dia = i_dia * 10 + (data[i] - '0');
-    }
+    };
     
     for (i = 0; i < 2; i++){
         i_mes = i_mes * 10 + (mes[i] - '0');
-    }
+    };
 
     //sscanf(ano,"%d", &i_ano);
     //sscanf(mes,"%d", &i_mes);
@@ -148,6 +146,7 @@ int validaNascimento (char nasc[]){
 
     //Verifica se é ano bissexto
     int bissexto;
+    int valido = 0;
 
     if ((i_ano % 4 == 0) && (i_ano % 100 != 0) || (i_ano % 400 == 0)) {
         bissexto = 1;
@@ -159,29 +158,30 @@ int validaNascimento (char nasc[]){
 
     if ( (i_mes == 1 || i_mes == 3 || i_mes == 5 || i_mes == 7 || i_mes == 8 || i_mes == 10 || i_mes == 12) && i_dia > 0 && i_dia <= 31 ){
         ///printf("Mes Valida (1)");
-        return 0;
+        valido = 0;
     } else if (i_mes == 4 || i_mes == 6 || i_mes == 9 || i_mes == 11 && i_dia > 0 && i_dia <= 30){
         //printf("Mes Valida (2)");
-        return 0;
+        valido = 0;
     } else if (i_mes == 2){
         if ( (bissexto == 1) && (i_dia > 0 && i_dia <= 29) ){
             //printf("Data Valida (3)");
-            return 0;
+            valido = 0;
         } else if ((bissexto == 0) && (i_dia > 0 && i_dia <= 28)){
             //printf("Data Valida (3)");
-            return 0;
+            valido = 0;
         } else {
             //printf("Data invalida (3)");
-            return 1;
+            valido = 1;
         };
     }
+
+    return valido;
 }
 
 //FALTA VALIDACAO DE ALGUNS DADOS DAS DISCIPLINAS
 
-void Stdin(void)
+void Limpa_stdin(void)
 {
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF) {}
-    return;
 }
