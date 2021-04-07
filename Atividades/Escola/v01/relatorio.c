@@ -7,19 +7,19 @@ CadastroAluPro listar_todos_alu_pro(int posicao, int tipo){
     CadastroAluPro alu_pro;
     if (tipo == 0){
         strcpy(alu_pro.nome, listaAlunos[posicao].nome);
-        //strcpy(alu_pro.CPF, listaAlunos[posicao].CPF);
-        //strcpy(alu_pro.dataNascimento, listaAlunos[posicao].dataNascimento);
-        //alu_pro.matricula = listaAlunos[posicao].matricula;
-        //alu_pro.sexo = listaAlunos[posicao].sexo;
+        strcpy(alu_pro.CPF, listaAlunos[posicao].CPF);
+        strcpy(alu_pro.dataNascimento, listaAlunos[posicao].dataNascimento);
+        alu_pro.matricula = listaAlunos[posicao].matricula;
+        alu_pro.sexo = listaAlunos[posicao].sexo;
         alu_pro.cod_disciplina = listaAlunos[posicao].cod_disciplina;
 
     } else {
         strcpy(alu_pro.nome, listaProfs[posicao].nome);
-        //strcpy(alu_pro.CPF, listaProfs[posicao].CPF);
-        //strcpy(alu_pro.dataNascimento, listaProfs[posicao].dataNascimento);
-        //alu_pro.matricula = listaProfs[posicao].matricula;
-        //alu_pro.sexo = listaProfs[posicao].sexo;
-         alu_pro.cod_disciplina = listaProfs[posicao].cod_disciplina;
+        strcpy(alu_pro.CPF, listaProfs[posicao].CPF);
+        strcpy(alu_pro.dataNascimento, listaProfs[posicao].dataNascimento);
+        alu_pro.matricula = listaProfs[posicao].matricula;
+        alu_pro.sexo = listaProfs[posicao].sexo;
+        alu_pro.cod_disciplina = listaProfs[posicao].cod_disciplina;
     }
     return alu_pro;
 }
@@ -27,9 +27,9 @@ CadastroAluPro listar_todos_alu_pro(int posicao, int tipo){
 Disciplinas listar_todas_disciplinas(int posicao){
     Disciplinas disciplina;
         strcpy(disciplina.nome_disciplina, listaDisciplinas[posicao].nome_disciplina);
-        //disciplina.cod_disciplina = listaDisciplinas[posicao].cod_disciplina;
-        //disciplina.matricula_professor = listaDisciplinas[posicao].matricula_professor;
-        //disciplina.semestre_disciplina = listaDisciplinas[posicao].semestre_disciplina;
+        disciplina.cod_disciplina = listaDisciplinas[posicao].cod_disciplina;
+        //disciplina.matricula_professo = listaDisciplinas[posicao].matricula_professor;
+        disciplina.semestre_disciplina = listaDisciplinas[posicao].semestre_disciplina;
 
     return disciplina;
 }
