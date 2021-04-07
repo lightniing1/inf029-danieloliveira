@@ -147,17 +147,34 @@ int AtualizaDisciplina (int posicao, Disciplinas disciplina){
     return 0;
 }
 
-int ExcluiAluPro (int posicao){
+int ExcluiAluPro (int posicao, int matricula){
     
     int i;
     
-    //Excluir de acordo se é professor, aluno ou disciplina
-    //SÓ ESTA EXCLUINDO ALUNO!!
-
-    for (i = posicao; i<TAM_LISTA-1; i++){
-       strcpy(listaAlunos[i].nome, listaAlunos[i+1].nome);
-       listaAlunos[i].matricula = listaAlunos[i+1].matricula;
-       // Colocar o resto dos dados aqui!
+    if (matricula >= 10 && matricula < 1000){
+        for (i = posicao; i<TAM_LISTA-1; i++){
+            strcpy(listaDisciplinas[i].nome_disciplina, listaDisciplinas[i+1].nome_disciplina);
+            listaDisciplinas[i].semestre_disciplina = listaDisciplinas[i+1].semestre_disciplina;
+        }
+    } else if (matricula > 1000 && matricula < 100000){
+        for (i = posicao; i<TAM_LISTA-1; i++){
+            strcpy(listaProfs[i].nome, listaProfs[i+1].nome);
+            strcpy(listaProfs[i].CPF, listaProfs[i+1].CPF);
+            strcpy(listaProfs[i].dataNascimento, listaProfs[i+1].dataNascimento);
+            listaProfs[i].matricula = listaProfs[i+1].matricula;
+            listaProfs[i].sexo = listaProfs[i+1].sexo;
+            listaProfs[i].cod_disciplina = listaProfs[i+1].cod_disciplina;
+            
+        }
+    } else {
+        for (i = posicao; i<TAM_LISTA-1; i++){
+            strcpy(listaAlunos[i].nome, listaAlunos[i+1].nome);
+            strcpy(listaAlunos[i].CPF, listaAlunos[i+1].CPF);
+            strcpy(listaAlunos[i].dataNascimento, listaAlunos[i+1].dataNascimento);
+            listaAlunos[i].matricula = listaAlunos[i+1].matricula;
+            listaAlunos[i].sexo = listaAlunos[i+1].sexo;
+            listaAlunos[i].cod_disciplina = listaAlunos[i+1].cod_disciplina;
+        }
     }
     
     //Teste
@@ -212,7 +229,8 @@ int mainCadastro(void){
         termina = 0;
 
         switch (menu){
-            case 1:
+            case 1://Cadastra aluno
+            {
                 while(!termina){
                     
                     CadastroAluPro CadastroAluno[i];
@@ -277,44 +295,85 @@ int mainCadastro(void){
                     scanf("%d", &termina);
                 }  
                 break;
-
-            case 2:
+            }
+            case 2://Cadastra professor
+            {
                 while(!termina){
                     
                     CadastroAluPro CadastroProfessor[i];
 
-                    printf("Nome\n");
-                    scanf("%s", CadastroProfessor[i].nome);
-                    /*printf("Sexo\n");
-                    scanf("%c", &sexo);
-                    printf("Data\n");
-                    scanf("%s", dataNascimento);
-                    printf("CPF\n");
-                    scanf("%s", CPF);*/
+                    Limpa_stdin();
+                    
+                    printf("Digite o nome\n");
+                    fgets(CadastroProfessor[i].nome, TAM_NOME, stdin);
+                    if (validaNome(CadastroProfessor[i].nome) == 1){
+                        printf("Tamanho máximo do nome e 20 caracteres");
+                        break;
+                    }
 
-                    RegistraProfessor(CadastroProfessor[i]);
+                    Limpa_stdin();
 
-                    i++;
+                    printf("Digite o Sexo (M - Masculino | F = Feminino | O - Outro\n");
+                    scanf("%c", &CadastroProfessor[i].sexo);
+                    if (validaSexo(CadastroProfessor[i].sexo) == 1){
+                        printf("Sexo inválido");
+                        break;
+                    };
 
-                    printf("Continua?\n");
+                    Limpa_stdin();
+
+                    printf("Digite a Data de Nascimento (Formatos aceito: 00/00/0000, 00-00-0000, 00.00.0000)\n");
+                    fgets(CadastroProfessor[i].dataNascimento, TAM_DATA_NASC, stdin);
+                    if (validaNascimento(CadastroProfessor[i].dataNascimento) == 1){
+                        printf("Data de nascimento inválida");
+                        break;
+                    };
+
+                    Limpa_stdin();
+
+                    printf("Digite o numero de CPF\n");
+                    fgets(CadastroProfessor[i].CPF, TAM_CPF, stdin);
+                    if (validaCPF(CadastroProfessor[i].CPF) == 1){
+                        printf("CPF inválido");
+                        break;
+                    };
+                    
+                    matricula = RegistraProfessor(CadastroProfessor[i]);
+                    matricula;
+
+                    printf("Deseja incluir o professor em uma disciplina? 0 - Sim, 1 - Nao\n");
+                    scanf("%d", &opcao_disciplina);
+
+                    if (opcao_disciplina == 0){
+                        printf("Codigo da disciplina: \n");
+                        scanf("%d", &cod_disciplina);
+
+                        if (Pesquisa(cod_disciplina) == -1){
+                            printf("Disciplina nao encontrada");
+                        } else {
+                            registra_aluno_professor_disciplina(Pesquisa(matricula), cod_disciplina, 0);
+                        }
+                        i++;
+                    } else {
+                        i++;
+                    }
+
+                    printf("Cadastrar outro professor? 0 - Sim, 1 - Nao\n");
                     scanf("%d", &termina);
-                }
+                }  
                 break;
-            
-            case 3:
+            }
+            case 3://Cadastra Disciplina
             {
                 while(!termina){
                     
                     Disciplinas CadastroDisciplica[i];
 
-                    printf("Nome\n");
-                    scanf("%s", CadastroDisciplica[i].nome_disciplina);
-                    /*printf("Sexo\n");
-                    scanf("%c", &sexo);
-                    printf("Data\n");
-                    scanf("%s", dataNascimento);
-                    printf("CPF\n");
-                    scanf("%s", CPF);*/
+                    printf("Nome da disciplina\n");
+                    fgets(CadastroDisciplica[i].nome_disciplina, TAM_NOME, stdin);
+
+                    printf("Semestre da disciplina\n");
+                    scanf("%d", &CadastroDisciplica[i].semestre_disciplina);
 
                     cod_disciplina = RegistroDisciplina(CadastroDisciplica[i]);
                     cod_disciplina;
@@ -322,105 +381,160 @@ int mainCadastro(void){
                     printf("Codigo da disciplina: %d", cod_disciplina);
                     i++;
 
-                    printf("Continua?\n");
+                    printf("Cadastrar outra disciplina? 0 - Sim, 1 - Nao\n");
                     scanf("%d", &termina);
                 }
                 break;
             }
-            case 4:
+            case 4://Atualiza Aluno ou professor
             {
-                CadastroAluPro atualizaaluno;
+                CadastroAluPro atualiza;
 
                 printf("Digite o numero de matricula\n");
                 scanf("%d", &matricula);
-                //VALIDAR SE TA NO RANGE DOS ALUNOS
-                posicaoMatricula = Pesquisa(matricula);
 
-                if (posicaoMatricula == -1){
-                    printf("Matricula nao encontrada\n");
-                } else {
-                    printf("Nome\n");
-                    scanf("%s", atualizaaluno.nome);
-                    /*printf("Sexo\n");
-                    scanf("%c", &sexo);
-                    printf("Data\n");
-                    scanf("%s", dataNascimento);
-                    printf("CPF\n");
-                    scanf("%s", CPF);*/
+                if (matricula >= 10 && matricula < 1000){
+                    printf("Matricula não encontrada\n");
+                    break;
+                } else if (matricula > 1000 && matricula < 100000){
+                    posicaoMatricula = Pesquisa(matricula);
+                    if (posicaoMatricula == -1){
+                        printf("Matricula nao encontrada\n");
+                        break;
+                    } else {
+                        printf("Atualizando cadastro de professor\n");
 
-                    AtualizaAluPro(posicaoMatricula, 0, atualizaaluno);
+                        Limpa_stdin();
+                    
+                        printf("Digite o nome\n");
+                        fgets(atualiza.nome, TAM_NOME, stdin);
+                        if (validaNome(atualiza.nome) == 1){
+                            printf("Tamanho máximo do nome e 20 caracteres");
+                            break;
+                        }
+
+                        Limpa_stdin();
+
+                        printf("Digite o Sexo (M - Masculino | F = Feminino | O - Outro\n");
+                        scanf("%c", &atualiza.sexo);
+                        if (validaSexo(atualiza.sexo) == 1){
+                            printf("Sexo inválido");
+                            break;
+                        };
+
+                        Limpa_stdin();
+
+                        printf("Digite a Data de Nascimento (Formatos aceito: 00/00/0000, 00-00-0000, 00.00.0000)\n");
+                        fgets(atualiza.dataNascimento, TAM_DATA_NASC, stdin);
+                        if (validaNascimento(atualiza.dataNascimento) == 1){
+                            printf("Data de nascimento inválida");
+                            break;
+                        };
+
+                        Limpa_stdin();
+
+                        printf("Digite o numero de CPF\n");
+                        fgets(atualiza.CPF, TAM_CPF, stdin);
+                        if (validaCPF(atualiza.CPF) == 1){
+                            printf("CPF inválido");
+                            break;
+                        };  
+
+                        AtualizaAluPro(posicaoMatricula, 1, atualiza);
+                        printf("Cadastro atualizado\n");
+                    }
+                } else if (matricula > 100000){
+                    posicaoMatricula = Pesquisa(matricula);
+                    if (posicaoMatricula == -1){
+                        printf("Matricula nao encontrada\n");
+                        break;
+                    } else {
+                        printf("Atualizando cadastro de aluno\n");
+
+                        Limpa_stdin();
+                    
+                        printf("Digite o nome\n");
+                        fgets(atualiza.nome, TAM_NOME, stdin);
+                        if (validaNome(atualiza.nome) == 1){
+                            printf("Tamanho máximo do nome e 20 caracteres");
+                            break;
+                        }
+
+                        Limpa_stdin();
+
+                        printf("Digite o Sexo (M - Masculino | F = Feminino | O - Outro\n");
+                        scanf("%c", &atualiza.sexo);
+                        if (validaSexo(atualiza.sexo) == 1){
+                            printf("Sexo inválido");
+                            break;
+                        };
+
+                        Limpa_stdin();
+
+                        printf("Digite a Data de Nascimento (Formatos aceito: 00/00/0000, 00-00-0000, 00.00.0000)\n");
+                        fgets(atualiza.dataNascimento, TAM_DATA_NASC, stdin);
+                        if (validaNascimento(atualiza.dataNascimento) == 1){
+                            printf("Data de nascimento inválida");
+                            break;
+                        };
+
+                        Limpa_stdin();
+
+                        printf("Digite o numero de CPF\n");
+                        fgets(atualiza.CPF, TAM_CPF, stdin);
+                        if (validaCPF(atualiza.CPF) == 1){
+                            printf("CPF inválido");
+                            break;
+                        };  
+
+                        AtualizaAluPro(posicaoMatricula, 0, atualiza);
+                        printf("Cadastro atualizado\n");
+                    }
                 }
-                //sair = 1;
                 break;
             }
-            case 5:
-            {
-                CadastroAluPro atualizaprofessor;
-
-                printf("Digite o numero de matricula\n");
-                scanf("%d", &matricula);
-                //VALIDAR SE TA NO RANGE DOS PROFESSORES
-                posicaoMatricula = Pesquisa(matricula);
-
-                if (posicaoMatricula == -1){
-                    printf("Matricula nao encontrada\n");
-                } else {
-                    printf("Nome\n");
-                    scanf("%s", atualizaprofessor.nome);
-                    /*printf("Sexo\n");
-                    scanf("%c", &sexo);
-                    printf("Data\n");
-                    scanf("%s", dataNascimento);
-                    printf("CPF\n");
-                    scanf("%s", CPF);*/
-
-                    AtualizaAluPro(posicaoMatricula, 1, atualizaprofessor);
-                }
-                break;
-            }
-            case 6:
-
+            case 5://Atualiza Disciplina
             {
                 Disciplinas atualizadisciplina;
 
                 printf("Digite o codigo de matricula\n");
                 scanf("%d\n", &matricula);
-                //VALIDAR SE TA NO RANGE DAS DISCIPLINAS
-                posicaoDisciplina = Pesquisa(matricula);
 
-                if (posicaoDisciplina == -1){
-                    printf("Disciplina nao encontrada\n");
+                if (matricula >= 1000 && matricula < 100000){
+                    printf("Disciplina nao encontrada");
                 } else {
-                    printf("Nome\n");
-                    scanf("%s", atualizadisciplina.nome_disciplina);
-                    //FALTA COLOCAR OS OUTROS DADOS
-                    AtualizaDisciplina(posicaoMatricula, atualizadisciplina);
+                    posicaoDisciplina = Pesquisa(matricula);
+                    if (posicaoDisciplina == -1){
+                        printf("Disciplina nao encontrada\n");
+                    } else {
+                        printf("Nome da disciplina\n");
+                        fgets(atualizadisciplina.nome_disciplina, TAM_NOME, stdin);
+
+                        printf("Semestre da disciplina");
+                        scanf("%d", atualizadisciplina.semestre_disciplina);
+                        AtualizaDisciplina(posicaoMatricula, atualizadisciplina);
+                    }
                 }
                 break;
             }
-            case 7:
+            case 6://Exclui aluno, professor ou disciplina
+            {
                 printf("Digite a matricula ou codigo da disciplina: ");
             	scanf("%d", &matricula);
             	
             	posicaoMatricula = Pesquisa(matricula);
-            	ExcluiAluPro(posicaoMatricula);
-            	
-                //Exclui aluno
+                if (posicaoMatricula == -1){
+                    printf("Matricula ou codigo da disciplina nao encontrado\n");
+                } else {
+                    ExcluiAluPro(posicaoMatricula, matricula);
+                }            	
                 break;
-            
-            case 8:
-                break;
-
-            case 9:
-                break;
-
-            case 0:
-                sair = 1;
-
+            }
             default:
+            {
                 printf("Menu inexistente\n");
             }
+        }
     }
-
     return 0;
 };

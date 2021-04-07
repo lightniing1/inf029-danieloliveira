@@ -134,13 +134,9 @@ DataNascimento separa_dma(CadastroAluPro aluno1, CadastroAluPro aluno2){
 }
 
 int compara_datas(CadastroAluPro aluno1, CadastroAluPro aluno2){
-
-
-
-
     //Faz a comparação
 
-
+    
 
 };
 
@@ -171,7 +167,7 @@ int mainRelatorio(void){
             printf("Listando alunos...\n");
             for (i = 0; i < 5 /* MUDAR AQUI DEPOIS */; i++){
                 aluno = listar_todos_alu_pro(i, 0);
-                printf("%s - %d\n", aluno.nome, aluno.cod_disciplina);
+                printf("%s - %d", aluno.nome, aluno.cod_disciplina);
             };
             break;
         }
@@ -258,7 +254,7 @@ int mainRelatorio(void){
             //Print lista dos alunos
             printf("Alunos em ordem alfabetica");
             for (i = 0; i < TAM_LISTA; i++){
-                printf("%s\n", ListaOrdenada[i]);
+                printf("%s ", ListaOrdenada[i]);
             }
 
             break;
