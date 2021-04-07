@@ -5,6 +5,7 @@
 //Coloca apenas os títulos da função ali
 
 //Structs
+
 typedef struct {
     char nome[22];
     char sexo;
