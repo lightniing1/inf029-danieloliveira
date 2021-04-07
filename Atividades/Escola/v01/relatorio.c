@@ -146,7 +146,7 @@ void menuRelatorio(){
     printf("Modulo Relatório\n");
     printf("*******************\n");
     printf("Qual menu deseja acessar?\n");
-    printf("1 - Alunos\n 2 - Professores\n 3 - Disciplinas\n");
+    printf("1 - Lista alunos\n 2 - Lista Professores\n 3 - Lista Disciplinas\n 4 - Lista diciplina com alunos matriculados\n 5 - Lista alunos por sexo\n 6 - Lista alunos ordenados por nome\n");
 
 }
 
@@ -167,7 +167,7 @@ int mainRelatorio(void){
             printf("Listando alunos...\n");
             for (i = 0; i < 5 /* MUDAR AQUI DEPOIS */; i++){
                 aluno = listar_todos_alu_pro(i, 0);
-                printf("%s - %d", aluno.nome, aluno.cod_disciplina);
+                printf("%s - %d", aluno.nome, aluno.matricula, aluno.cod_disciplina);
             };
             break;
         }
