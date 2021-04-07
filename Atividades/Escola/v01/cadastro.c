@@ -195,7 +195,7 @@ int selecaoCadastro(){
     printf("Modulo Cadastro\n");
     printf("**********************\n");
     printf("O que deseja acessar?\n");
-    printf(" 1 - Cadastrar aluno\n 2 - Cadastrar professor\n 3 - Cadastrar disciplina\n 4 - Atualizar aluno\n 5 - Atualizar professor\n 6 - Atualizar disciplina\n 7 - Excluir\n 8 - Cadastrar aluno em disciplina\n 9 - Cadastrar professor em disciplina\n 0 - Voltar\n");
+    printf(" 1 - Cadastrar aluno\n 2 - Cadastrar professor\n 3 - Cadastrar disciplina\n 4 - Atualizar Aluno/Professor\n 5 - Atualizar disciplina\n 6 - Excluir Pessoa ou Disciplina\n 0 - Voltar\n");
     scanf("%d", &selecaoCadastro);
 
     return selecaoCadastro;
@@ -529,6 +529,10 @@ int mainCadastro(void){
                     ExcluiAluPro(posicaoMatricula, matricula);
                 }            	
                 break;
+            }
+            case 0:
+            {
+                sair = 1;
             }
             default:
             {
