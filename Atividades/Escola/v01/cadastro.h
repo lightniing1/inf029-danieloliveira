@@ -45,6 +45,7 @@ int Pesquisa(int matricula);
 int AtualizaAluPro(int posicao, int tipo, CadastroAluPro alunoprofessor);
 int AtualizaDisciplina (int posicao, Disciplinas disciplina);
 int registra_aluno_professor_disciplina(int posicao, int cod_disciplina, int tipo);
+DataNascimento separa_dma(char datanascimento[]);
 
 
 #endif

@@ -2,6 +2,7 @@
 #include <string.h>
 #include "cadastro.h"
 #include "relatorio.h"
+#include "validacao.h"
 
 CadastroAluPro listar_todos_alu_pro(int posicao, int tipo){
     CadastroAluPro alu_pro;
@@ -58,6 +59,7 @@ int mainRelatorio(void){
     int menu;
     int i, j;
     int cod_disciplina;
+    char data_aniversario[12];
 
     menuRelatorio();
     scanf("%d", &menu);
@@ -69,7 +71,12 @@ int mainRelatorio(void){
             printf("Listando alunos...\n");
             for (i = 0; i < TAM_LISTA; i++){
                 aluno = listar_todos_alu_pro(i, 0);
-                printf("%s - %d", aluno.nome, aluno.matricula, aluno.cod_disciplina);
+                printf("Matricula: %d\n", aluno.matricula);
+                printf("Nome: %s\n", aluno.nome);
+                printf("Data de Nascimento: %s\n", aluno.dataNascimento);
+                printf("Sexo: %c\n", aluno.sexo);
+                printf("CPF: %s\n", aluno.CPF);
+                printf("Cod. Disciplina: %d\n", aluno.cod_disciplina);
             };
             break;
         }
@@ -80,7 +87,12 @@ int mainRelatorio(void){
             printf("Listando professores...\n");
             for (i = 0; i < TAM_LISTA; i++){
                 professor = listar_todos_alu_pro(i, 1);
-                printf("%s", professor.nome);
+                printf("Matricula: %d\n", professor.matricula);
+                printf("Nome: %s\n", professor.nome);
+                printf("Data de Nascimento: %s\n", professor.dataNascimento);
+                printf("Sexo: %c\n", professor.sexo);
+                printf("CPF: %s\n", professor.CPF);
+                printf("Cod. Disciplina: %d\n", professor.cod_disciplina);
             };
             break;
         }
@@ -91,7 +103,8 @@ int mainRelatorio(void){
             printf("Listando disciplinas...\n");
             for (i = 0; i < TAM_LISTA; i++){
                 disciplina = listar_todas_disciplinas(i);
-                printf("%s", disciplina.nome_disciplina);
+                printf("Cod. da Disciplina: %d\n", disciplina.cod_disciplina);
+                printf("Nome da Disciplina: %s\n", disciplina.nome_disciplina);
             };
             break;
         }
@@ -116,17 +129,17 @@ int mainRelatorio(void){
 
         case 5: //Lista alunos por sexo
         {
-            printf("Listando alunos por sexo");
-            printf("Masculino(s)");
-            for (i = 0; i < 5; i++){
+            printf("Listando alunos por sexo\n");
+            printf("Masculino(s)\n");
+            for (i = 0; i < TAM_LISTA; i++){
                 if (listaAlunos[i].sexo == 'M'){
-                    printf("Aluno: %s", listaAlunos[i].nome);
+                    printf("Aluno: %s\n", listaAlunos[i].nome);
                 }
             }
-            printf("Feminino(s)");
-            for (i = 0; i < 5; i++){
+            printf("Feminino(s)\n");
+            for (i = 0; i < TAM_LISTA; i++){
                 if (listaAlunos[i].sexo == 'F'){
-                    printf("Aluno: %s", listaAlunos[i].nome);
+                    printf("Aluno: %s\n", listaAlunos[i].nome);
                 }
             }
             break;
@@ -156,7 +169,12 @@ int mainRelatorio(void){
             //Print lista dos alunos
             printf("Alunos em ordem alfabetica");
             for (i = 0; i < TAM_LISTA; i++){
-                printf("%s ", ListaOrdenada[i]);
+                printf("Matricula: %d\n", ListaOrdenada[i].matricula);
+                printf("Nome: %s\n", ListaOrdenada[i].nome);
+                printf("Data de Nascimento: %s\n", ListaOrdenada[i].dataNascimento);
+                printf("Sexo: %c\n", ListaOrdenada[i].sexo);
+                printf("CPF: %s\n", ListaOrdenada[i].CPF);
+                printf("Cod. Disciplina: %d\n", ListaOrdenada[i].cod_disciplina);
             }
 
             break;
@@ -189,12 +207,140 @@ int mainRelatorio(void){
                 }
             }
 
-            printf("Alunos em ordem alfabetica");
+            printf("Alunos ordenado por data de nascimento\n");
             for (i = 0; i < TAM_LISTA; i++){
-                printf("%s ", ListaOrdenada[i]);
+                printf("Matricula: %d\n", ListaOrdenada[i].matricula);
+                printf("Nome: %s\n", ListaOrdenada[i].nome);
+                printf("Data de Nascimento: %s\n", ListaOrdenada[i].dataNascimento);
+                printf("Sexo: %c\n", ListaOrdenada[i].sexo);
+                printf("CPF: %s\n", ListaOrdenada[i].CPF);
+                printf("Cod. Disciplina: %d\n", ListaOrdenada[i].cod_disciplina);
             }
 
             break;
+
+        }
+        case 8: //Lista professores por sexo
+        {
+            printf("Listando professores por sexo\n");
+            printf("Masculino(s)\n");
+            for (i = 0; i < TAM_LISTA; i++){
+                if (listaProfs[i].sexo == 'M'){
+                    printf("Aluno: %s\n", listaProfs[i].nome);
+                }
+            }
+            printf("Feminino(s)\n");
+            for (i = 0; i < TAM_LISTA; i++){
+                if (listaProfs[i].sexo == 'F'){
+                    printf("Aluno: %s\n", listaProfs[i].nome);
+                }
+            }
+            break;
+        }
+
+        case 9: //Lista professores ordernados por nome
+        {
+            CadastroAluPro ListaOrdenada[TAM_LISTA];
+            CadastroAluPro temporario;
+            
+            //Copia os nomes para não serem influenciados no array original
+            for (i = 0; i < TAM_LISTA; i++){
+                ListaOrdenada[i] = listaProfs[i];
+            };
+
+            for(i = 0; i < TAM_LISTA; i++){
+                for (j = i + 1; j < TAM_LISTA; j++){
+                    if(strcmp(ListaOrdenada[i].nome, ListaOrdenada[j].nome) > 0){ //Compara se algum caractere é diferente. Se for, reordena.
+                        //Faz a troca e repete as comparações até que esteja tudo ordernado (Dando zero no strcmp)
+                        temporario = ListaOrdenada[i];
+                        ListaOrdenada[i] = ListaOrdenada[j];
+                        ListaOrdenada[j] = temporario;
+                    }
+                }
+            }
+
+            //Print lista dos professores
+            printf("Professores em ordem alfabetica");
+            for (i = 0; i < TAM_LISTA; i++){
+                printf("Matricula: %d\n", ListaOrdenada[i].matricula);
+                printf("Nome: %s\n", ListaOrdenada[i].nome);
+                printf("Data de Nascimento: %s\n", ListaOrdenada[i].dataNascimento);
+                printf("Sexo: %c\n", ListaOrdenada[i].sexo);
+                printf("CPF: %s\n", ListaOrdenada[i].CPF);
+                printf("Cod. Disciplina: %d\n", ListaOrdenada[i].cod_disciplina);
+            }
+
+            break;
+        }
+
+        case 10: //Lista professores por data de nascimento
+        {
+            CadastroAluPro ListaOrdenada[TAM_LISTA];
+            CadastroAluPro temporario;
+
+            for (i = 0; i < TAM_LISTA; i++){
+                ListaOrdenada[i] = listaProfs[i];
+            }
+            
+            for (i = 0; i < TAM_LISTA; i++){
+                for(j = i + 1; j < TAM_LISTA; j++){
+                    if (ListaOrdenada[i].diamesano.ano > ListaOrdenada[j].diamesano.ano){
+                       temporario = ListaOrdenada[i];
+                       ListaOrdenada[i] = ListaOrdenada[j];
+                       ListaOrdenada[j] = temporario;
+                    } else if (ListaOrdenada[i].diamesano.ano == ListaOrdenada[j].diamesano.ano && ListaOrdenada[i].diamesano.mes > ListaOrdenada[j].diamesano.mes){
+                        temporario = ListaOrdenada[i];
+                        ListaOrdenada[i] = ListaOrdenada[j];
+                        ListaOrdenada[j] = temporario;
+                    } else if (ListaOrdenada[i].diamesano.ano == ListaOrdenada[j].diamesano.ano && ListaOrdenada[i].diamesano.mes == ListaOrdenada[j].diamesano.dia && ListaOrdenada[j].diamesano.dia){
+                        temporario = ListaOrdenada[i];
+                        ListaOrdenada[i] = ListaOrdenada[j];
+                        ListaOrdenada[j] = temporario;
+                    }
+                }
+            }
+
+            printf("Professores ordenado por data de nascimento\n");
+            for (i = 0; i < TAM_LISTA; i++){
+                printf("Matricula: %d\n", ListaOrdenada[i].matricula);
+                printf("Nome: %s\n", ListaOrdenada[i].nome);
+                printf("Data de Nascimento: %s\n", ListaOrdenada[i].dataNascimento);
+                printf("Sexo: %c\n", ListaOrdenada[i].sexo);
+                printf("CPF: %s\n", ListaOrdenada[i].CPF);
+                printf("Cod. Disciplina: %d\n", ListaOrdenada[i].cod_disciplina);
+            }
+
+            break;
+
+        }
+
+        case 11: //Aniversariante
+        {
+        
+            DataNascimento valida;
+
+            Limpa_stdin();
+
+            printf("Entre com a data de nascimento (Formato 00/00/0000)\n");
+            fgets(data_aniversario, 12, stdin);
+            
+            valida = separa_dma(data_aniversario);
+
+            printf("Aniversariantes alunos\n");
+            for(i = 0; i < TAM_LISTA; i++){
+                if ( (valida.dia == listaAlunos[i].diamesano.dia) && (valida.mes == listaAlunos[i].diamesano.mes) && (valida.ano == listaAlunos[i].diamesano.ano) ){
+                    printf("Matricula: %d\n", listaAlunos[i].matricula);
+                    printf("Aluno: %s\n", listaAlunos[i].nome);
+                }
+            }
+
+            printf("Aniversariantes professores");
+            for (i = 0; i < TAM_LISTA; i++){
+                if ( (valida.dia == listaProfs[i].diamesano.dia) && (valida.mes == listaProfs[i].diamesano.mes) && (valida.ano == listaProfs[i].diamesano.ano) ){
+                    printf("Matricula: %d\n", listaProfs[i].matricula);
+                    printf("Professor: %s\n", listaProfs[i].nome);
+                }
+            }
 
         }
         default:

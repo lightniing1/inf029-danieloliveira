@@ -18,7 +18,7 @@ int validaNome (char nome[]){
 
 int validaSexo (char sexo){
 
-    if (sexo == 'M' || sexo == 'm' || sexo == 'F' || sexo == 'f' || sexo == 'O' || sexo == 'o'){
+    if (sexo == 'M' || sexo == 'm' || sexo == 'F' || sexo == 'f'){
         return 0;
     } else {
         return 1;
@@ -159,7 +159,7 @@ int validaNascimento (char nasc[]){
     if ( (i_mes == 1 || i_mes == 3 || i_mes == 5 || i_mes == 7 || i_mes == 8 || i_mes == 10 || i_mes == 12) && i_dia > 0 && i_dia <= 31 ){
         ///printf("Mes Valida (1)");
         valido = 0;
-    } else if (i_mes == 4 || i_mes == 6 || i_mes == 9 || i_mes == 11 && i_dia > 0 && i_dia <= 30){
+    } else if ((i_mes == 4 || i_mes == 6 || i_mes == 9 || i_mes == 11 ) && i_dia > 0 && i_dia <= 30){
         //printf("Mes Valida (2)");
         valido = 0;
     } else if (i_mes == 2){
@@ -173,6 +173,16 @@ int validaNascimento (char nasc[]){
             //printf("Data invalida (3)");
             valido = 1;
         };
+    }
+
+    if (i_ano < 1899 && i_ano > 9999){
+        valido = 1;
+    }
+    if (i_mes < 0 && i_mes > 12){
+        valido = 1;
+    }
+    if (i_dia < 0 && i_dia > 31){
+        valido = 1;
     }
 
     return valido;

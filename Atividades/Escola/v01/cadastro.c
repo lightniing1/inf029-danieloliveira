@@ -94,7 +94,7 @@ int RegistraAluno(CadastroAluPro aluno){
     strcpy(listaAlunos[qtd_alunos].nome, aluno.nome);
     strcpy(listaAlunos[qtd_alunos].CPF, aluno.CPF);
 
-    //strcpy(listaAlunos[qtd_alunos].dataNascimento, aluno.dataNascimento);
+    strcpy(listaAlunos[qtd_alunos].dataNascimento, aluno.dataNascimento);
     
     listaAlunos[qtd_alunos].diamesano.dia = separa_dma(aluno.dataNascimento).dia;
     listaAlunos[qtd_alunos].diamesano.mes = separa_dma(aluno.dataNascimento).mes;
@@ -123,7 +123,7 @@ int RegistraProfessor(CadastroAluPro professor){
     strcpy(listaProfs[qtd_professor].nome, professor.nome);
     strcpy(listaProfs[qtd_professor].CPF, professor.CPF);
 
-    //strcpy(listaProfs[qtd_professor].dataNascimento, professor.dataNascimento);
+    strcpy(listaProfs[qtd_professor].dataNascimento, professor.dataNascimento);
 
     listaProfs[qtd_professor].diamesano.dia = separa_dma(professor.dataNascimento).dia;
     listaProfs[qtd_professor].diamesano.mes = separa_dma(professor.dataNascimento).mes;
@@ -328,7 +328,7 @@ int mainCadastro(void){
 
                 Limpa_stdin();
 
-                printf("Digite o Sexo (M - Masculino | F = Feminino | O - Outro\n");
+                printf("Digite o Sexo (M - Masculino | F = Feminino\n");
                 scanf("%c", &CadastroAluno.sexo);
                 if (validaSexo(CadastroAluno.sexo) == 1){
                     printf("Sexo inválido");
