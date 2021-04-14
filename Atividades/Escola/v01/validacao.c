@@ -154,7 +154,7 @@ int validaNascimento (char nasc[]){
         bissexto = 0;
     };
 
-    //Verifica se o dia, mes e ano | Um switch seria melhor aqui
+    //Verifica se o dia, mes e ano
 
     if ( (i_mes == 1 || i_mes == 3 || i_mes == 5 || i_mes == 7 || i_mes == 8 || i_mes == 10 || i_mes == 12) && i_dia > 0 && i_dia <= 31 ){
         ///printf("Mes Valida (1)");

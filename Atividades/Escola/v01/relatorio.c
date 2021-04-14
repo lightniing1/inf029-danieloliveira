@@ -42,97 +42,9 @@ CadastroAluPro listar_disciplina_com_alunos (int cod_disciplina, int i){
         }
 
 }
+/*
 
-DataNascimento separa_dma(CadastroAluPro aluno1, CadastroAluPro aluno2){
-    DataNascimento dma;
-    
-    char vNasc[] = "00000000";
-    char data_aluno1[] = "00";
-    char mes_aluno1[] = "00";
-    char ano_aluno1[] = "0000";
-
-    char vNasc2[] = "00000000";
-    char data_aluno2[] = "00";
-    char mes_aluno2[] = "00";
-    char ano_aluno2[] = "0000";
-
-    int i, j = 0;
-
-    // Separa o dia, mes e ano em diferentes arrays
-    for(i = 0; i < 12; i++){
-        vNasc[i] = aluno1.dataNascimento[j];
-        vNasc2[i] = aluno2.dataNascimento[j];
-        j++;
-        if (aluno1.dataNascimento[j] == '.' || aluno1.dataNascimento[j] == '-' || aluno1.dataNascimento[j] == '/'){
-            j = j + 1;
-        };
-    };    
-
-    j = 0;
-    for (i = 0; i < 3; i++){
-        if (i==2){
-            break;
-        } else {
-        	data_aluno1[i] = vNasc[i];
-            data_aluno2[i] = vNasc2[i];
-		};
-    };
-
-	j = 0;
-    for (; i < 5; i++){
-        if (i==4){
-            break;
-        } else {
-        	mes_aluno1[j] = vNasc[i];
-            mes_aluno2[j] = vNasc2[i];
-        	j++;
-		};
-    };
-    
-    j = 0;
-    for (; i < 9; i++){
-        if (i==8){
-            break;
-        } else {
-        	ano_aluno1[j] = vNasc[i];
-            ano_aluno2[j] = vNasc2[i];
-        	j++;
-		};
-	};
-    
-    //Converte os arrays de string para int.
-
-	int i_ano, i_ano2 = 0;
-	int i_dia, i_dia2 = 0;
-	int i_mes, i_mes2 = 0;
-
-    for (i = 0; i < 4; i++){
-        i_ano = i_ano * 10 + (ano_aluno1[i] - '0');
-        i_ano2 = i_ano2 * 10 + (ano_aluno2[i] - '0');
-    };
-    
-    for (i = 0; i < 2; i++){
-        i_dia = i_dia * 10 + (data_aluno1[i] - '0');
-        i_dia2 = i_dia2 * 10 + (data_aluno2[i] - '0');
-    };
-    
-    for (i = 0; i < 2; i++){
-        i_mes = i_mes * 10 + (mes_aluno1[i] - '0');
-        i_mes2 = i_mes2 * 10 + (mes_aluno2[i] - '0');
-    };
-
-    dma.dia = i_dia;
-    dma.mes = i_mes;
-    dma.ano = i_ano;
-
-    dma.dia2 = i_dia2;
-    dma.mes2 = i_mes2;
-    dma.ano2 = i_ano2;
-
-    return dma;
-
-}
-
+*/
 int compara_datas(CadastroAluPro aluno1, CadastroAluPro aluno2){
     //Faz a comparação
 
@@ -165,7 +77,7 @@ int mainRelatorio(void){
         {
             CadastroAluPro aluno;
             printf("Listando alunos...\n");
-            for (i = 0; i < 5 /* MUDAR AQUI DEPOIS */; i++){
+            for (i = 0; i < TAM_LISTA; i++){
                 aluno = listar_todos_alu_pro(i, 0);
                 printf("%s - %d", aluno.nome, aluno.matricula, aluno.cod_disciplina);
             };
@@ -176,7 +88,7 @@ int mainRelatorio(void){
         {
             CadastroAluPro professor;
             printf("Listando professores...\n");
-            for (i = 0; i < 5 /* MUDAR AQUI DEPOIS */; i++){
+            for (i = 0; i < TAM_LISTA; i++){
                 professor = listar_todos_alu_pro(i, 1);
                 printf("%s", professor.nome);
             };
@@ -187,7 +99,7 @@ int mainRelatorio(void){
         {
             Disciplinas disciplina;
             printf("Listando disciplinas...\n");
-            for (i = 0; i < 5 /* MUDAR AQUI DEPOIS */; i++){
+            for (i = 0; i < TAM_LISTA; i++){
                 disciplina = listar_todas_disciplinas(i);
                 printf("%s", disciplina.nome_disciplina);
             };
@@ -203,7 +115,7 @@ int mainRelatorio(void){
                 break;
             } else {
                 printf("Disciplina: %d", cod_disciplina);
-                for(i = 0; i < 5 /*MUDAR AQUI DEPOIS */; i++){
+                for(i = 0; i < TAM_LISTA; i++){
                     if(listaAlunos[i].cod_disciplina == cod_disciplina){
                         printf("%s", listaAlunos[i].nome);
                     }
@@ -232,21 +144,21 @@ int mainRelatorio(void){
 
         case 6: //Lista alunos ordernados por nome
         {
-            char ListaOrdenada[TAM_LISTA][50];
-            char temporario[TAM_LISTA];
+            CadastroAluPro ListaOrdenada[TAM_LISTA];
+            CadastroAluPro temporario;
             
             //Copia os nomes para não serem influenciados no array original
             for (i = 0; i < TAM_LISTA; i++){
-                strcpy(ListaOrdenada[i], listaAlunos[i].nome);
+                ListaOrdenada[i] = listaAlunos[i];
             };
 
             for(i = 0; i < TAM_LISTA; i++){
                 for (j = i + 1; j < TAM_LISTA; j++){
-                    if(strcmp(ListaOrdenada[i], ListaOrdenada[j]) > 0){ //Compara se algum caractere é diferente. Se for, reordena
+                    if(strcmp(ListaOrdenada[i].nome, ListaOrdenada[j].nome) > 0){ //Compara se algum caractere é diferente. Se for, reordena.
                         //Faz a troca e repete as comparações até que esteja tudo ordernado (Dando zero no strcmp)
-                        strcpy(temporario, ListaOrdenada[i]);
-                        strcpy(ListaOrdenada[i], ListaOrdenada[j]);
-                        strcpy(ListaOrdenada[j], temporario);
+                        temporario = ListaOrdenada[i];
+                        ListaOrdenada[i] = ListaOrdenada[j];
+                        ListaOrdenada[j] = temporario;
                     }
                 }
             }
@@ -262,7 +174,38 @@ int mainRelatorio(void){
 
         case 7: //Lista alunos por data de nascimento
         {
+            CadastroAluPro ListaOrdenada[TAM_LISTA];
+            CadastroAluPro temporario;
+
+            for (i = 0; i < TAM_LISTA; i++){
+                ListaOrdenada[i] = listaAlunos[i];
+            }
             
+            for (i = 0; i < TAM_LISTA; i++){
+                for(j = i + 1; j < TAM_LISTA; j++){
+                    if (ListaOrdenada[i].diamesano.ano > ListaOrdenada[j].diamesano.ano){
+                       temporario = ListaOrdenada[i];
+                       ListaOrdenada[i] = ListaOrdenada[j];
+                       ListaOrdenada[j] = temporario;
+                    } else if (ListaOrdenada[i].diamesano.ano == ListaOrdenada[j].diamesano.ano && ListaOrdenada[i].diamesano.mes > ListaOrdenada[j].diamesano.mes){
+                        temporario = ListaOrdenada[i];
+                        ListaOrdenada[i] = ListaOrdenada[j];
+                        ListaOrdenada[j] = temporario;
+                    } else if (ListaOrdenada[i].diamesano.ano == ListaOrdenada[j].diamesano.ano && ListaOrdenada[i].diamesano.mes == ListaOrdenada[j].diamesano.dia && ListaOrdenada[j].diamesano.dia){
+                        temporario = ListaOrdenada[i];
+                        ListaOrdenada[i] = ListaOrdenada[j];
+                        ListaOrdenada[j] = temporario;
+                    }
+                }
+            }
+
+            printf("Alunos em ordem alfabetica");
+            for (i = 0; i < TAM_LISTA; i++){
+                printf("%s ", ListaOrdenada[i]);
+            }
+
+            break;
+
         }
         default:
             break;

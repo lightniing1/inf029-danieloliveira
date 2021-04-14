@@ -5,11 +5,17 @@
 //Coloca apenas os títulos da função ali
 
 //Structs
+typedef struct 
+{
+    int dia, mes, ano;
+} DataNascimento;
+
 
 typedef struct {
     char nome[22];
     char sexo;
     char dataNascimento[12];
+    DataNascimento diamesano;
     char CPF[15];
     int matricula;
     int cod_disciplina;
