@@ -34,7 +34,6 @@ Disciplinas listar_todas_disciplinas(int posicao){
     return disciplina;
 }
 
-//Vou manter isso em uma função para não perder minha sanidade depois procurando
 CadastroAluPro listar_disciplina_com_alunos (int cod_disciplina, int i){
     CadastroAluPro aluno;
         if (listaAlunos[i].cod_disciplina == cod_disciplina){
@@ -42,15 +41,6 @@ CadastroAluPro listar_disciplina_com_alunos (int cod_disciplina, int i){
         }
 
 }
-/*
-
-*/
-int compara_datas(CadastroAluPro aluno1, CadastroAluPro aluno2){
-    //Faz a comparação
-
-    
-
-};
 
 void menuRelatorio(){
 
@@ -58,7 +48,7 @@ void menuRelatorio(){
     printf("Modulo Relatório\n");
     printf("*******************\n");
     printf("Qual menu deseja acessar?\n");
-    printf("1 - Lista alunos\n 2 - Lista Professores\n 3 - Lista Disciplinas\n 4 - Lista diciplina com alunos matriculados\n 5 - Lista alunos por sexo\n 6 - Lista alunos ordenados por nome\n");
+    printf("1 - Lista alunos\n 2 - Lista Professores\n 3 - Lista Disciplinas\n 4 - Lista diciplina com alunos matriculados\n 5 - Lista alunos por sexo\n 6 - Lista alunos ordenados por nome\n 7 - Lista alunos por data de nascimento");
 
 }
 

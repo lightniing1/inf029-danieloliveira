@@ -1,7 +1,7 @@
 #ifndef CADASTRO_H_INCLUDED
 #define CADASTRO_H_INCLUDED
 
-#define TAM_LISTA 200
+#define TAM_LISTA 5
 //Coloca apenas os títulos da função ali
 
 //Structs

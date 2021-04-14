@@ -6,7 +6,7 @@
 #define TAM_CPF 15
 #define TAM_NOME 50
 #define TAM_DATA_NASC 12
-#define TAM_LISTA 200
+#define TAM_LISTA 5
 
 //Funções
 
@@ -105,9 +105,6 @@ int RegistraAluno(CadastroAluPro aluno){
     listaAlunos[qtd_alunos].matricula = matriculaAluno;
 
     printf("%d - %s\n", listaAlunos[qtd_alunos].matricula ,listaAlunos[qtd_alunos].nome);
-    printf("%d\n", listaAlunos[qtd_alunos].diamesano.dia);
-    printf("%d\n", listaAlunos[qtd_alunos].diamesano.mes);
-    printf("%d\n", listaAlunos[qtd_alunos].diamesano.ano);
 
     matricula_aluno_atual = matriculaAluno;
     qtd_alunos++;
@@ -432,16 +429,23 @@ int mainCadastro(void){
 
             case 3://Cadastra Disciplina
             {          
-                Disciplinas CadastroDisciplica[i];
+                Disciplinas CadastroDisciplica;
+
+                Limpa_stdin();
 
                 printf("Nome da disciplina\n");
-                fgets(CadastroDisciplica[i].nome_disciplina, TAM_NOME, stdin);
+                fgets(CadastroDisciplica.nome_disciplina, TAM_NOME, stdin);
+                if (validaNome(CadastroDisciplica.nome_disciplina) == 1){
+                    printf("Nome invalido");
+                    break;
+                }
+
+                Limpa_stdin();
 
                 printf("Semestre da disciplina\n");
-                scanf("%d", &CadastroDisciplica[i].semestre_disciplina);
+                scanf("%d", &CadastroDisciplica.semestre_disciplina);
 
-                cod_disciplina = RegistroDisciplina(CadastroDisciplica[i]);
-                cod_disciplina;
+                cod_disciplina = RegistroDisciplina(CadastroDisciplica);;
 
                 printf("Codigo da disciplina: %d", cod_disciplina);
                 break;
