@@ -49,8 +49,7 @@ void menuRelatorio(){
     printf("Modulo Relatório\n");
     printf("*******************\n");
     printf("Qual menu deseja acessar?\n");
-    printf("1 - Lista alunos\n 2 - Lista Professores\n 3 - Lista Disciplinas\n 4 - Lista diciplina com alunos matriculados\n 5 - Lista alunos por sexo\n 6 - Lista alunos ordenados por nome\n 7 - Lista alunos por data de nascimento");
-
+    printf("1 - Lista alunos\n 2 - Lista Professores\n 3 - Lista Disciplinas\n 4 - Lista diciplina com alunos matriculados\n 5 - Lista alunos por sexo\n 6 - Lista alunos ordenados por nome\n 7 - Lista alunos por data de nascimento\n 8 - Lista professores por sexo\n 9 - Lista professores ordernados por nome\n 10 - Lista professores por data de nascimento\n 11 - Aniversariante");
 }
 
 int mainRelatorio(void){
