@@ -70,12 +70,16 @@ int mainRelatorio(void){
             printf("Listando alunos...\n");
             for (i = 0; i < TAM_LISTA; i++){
                 aluno = listar_todos_alu_pro(i, 0);
-                printf("Matricula: %d\n", aluno.matricula);
-                printf("Nome: %s\n", aluno.nome);
-                printf("Data de Nascimento: %s\n", aluno.dataNascimento);
-                printf("Sexo: %c\n", aluno.sexo);
-                printf("CPF: %s\n", aluno.CPF);
-                printf("Cod. Disciplina: %d\n", aluno.cod_disciplina);
+                if (aluno.matricula == 0){
+                    continue;
+                } else {
+                    printf("Matricula: %d\n", aluno.matricula);
+                    printf("Nome: %s\n", aluno.nome);
+                    printf("Data de Nascimento: %s\n", aluno.dataNascimento);
+                    printf("Sexo: %c\n", aluno.sexo);
+                    printf("CPF: %s\n", aluno.CPF);
+                    printf("Cod. Disciplina: %d\n", aluno.cod_disciplina);
+                }
             };
             break;
         }
@@ -86,12 +90,16 @@ int mainRelatorio(void){
             printf("Listando professores...\n");
             for (i = 0; i < TAM_LISTA; i++){
                 professor = listar_todos_alu_pro(i, 1);
-                printf("Matricula: %d\n", professor.matricula);
-                printf("Nome: %s\n", professor.nome);
-                printf("Data de Nascimento: %s\n", professor.dataNascimento);
-                printf("Sexo: %c\n", professor.sexo);
-                printf("CPF: %s\n", professor.CPF);
-                printf("Cod. Disciplina: %d\n", professor.cod_disciplina);
+                if (professor.matricula == 0){
+                    continue;
+                } else {
+                    printf("Matricula: %d\n", professor.matricula);
+                    printf("Nome: %s\n", professor.nome);
+                    printf("Data de Nascimento: %s\n", professor.dataNascimento);
+                    printf("Sexo: %c\n", professor.sexo);
+                    printf("CPF: %s\n", professor.CPF);
+                    printf("Cod. Disciplina: %d\n", professor.cod_disciplina);
+                }
             };
             break;
         }
@@ -102,8 +110,12 @@ int mainRelatorio(void){
             printf("Listando disciplinas...\n");
             for (i = 0; i < TAM_LISTA; i++){
                 disciplina = listar_todas_disciplinas(i);
-                printf("Cod. da Disciplina: %d\n", disciplina.cod_disciplina);
-                printf("Nome da Disciplina: %s\n", disciplina.nome_disciplina);
+                if (disciplina.cod_disciplina == 0){
+                    continue;
+                } else {
+                    printf("Cod. da Disciplina: %d\n", disciplina.cod_disciplina);
+                    printf("Nome da Disciplina: %s\n", disciplina.nome_disciplina);
+                }
             };
             break;
         }
@@ -119,6 +131,7 @@ int mainRelatorio(void){
                 printf("Disciplina: %d", cod_disciplina);
                 for(i = 0; i < TAM_LISTA; i++){
                     if(listaAlunos[i].cod_disciplina == cod_disciplina){
+                        printf("%d", listaAlunos[i].matricula);
                         printf("%s", listaAlunos[i].nome);
                     }
                 }
