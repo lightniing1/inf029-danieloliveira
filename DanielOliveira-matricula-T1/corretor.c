@@ -37,7 +37,7 @@ int main()
     //testQ1();
     //testQ2();
     //testQ3();
-    //testQ4();
+    testQ4();
     //testQ5();
     //testQ6();
 }
@@ -161,13 +161,14 @@ void testQ4()
         posicoes[i] = -1;
     }
     strcpy(strTexto, "Laboratorio de programacao: para ratos de programação");
+    //strcpy(strTexto, "para ratos");
     strcpy(strBusca, "rato");
     printf("%d\n", q4(strTexto, strBusca, posicoes) == 2);
     printf("%d\n", posicoes[0] == 5);
     printf("%d\n", posicoes[1] == 8);
     printf("%d\n", posicoes[2] == 34);
     printf("%d\n", posicoes[3] == 37);
-
+    /*
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
@@ -181,6 +182,7 @@ void testQ4()
     printf("%d\n", posicoes[3] == 36);
     printf("%d\n", posicoes[4] == 52);
     printf("%d\n", posicoes[5] == 54);
+    */
 }
 
 void testQ5()

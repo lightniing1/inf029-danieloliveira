@@ -23,6 +23,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "DanielSantos20192160006.h"
 
 /*
@@ -377,7 +378,33 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+    int i, j, k = 0;
+    int inicio, fim;
+    int tamanho_string_busca;
+
+    for (i=0; strTexto[i] != '\0'; i++){
+        if (strTexto[i] == strBusca[0]){
+            inicio = i;
+            while (strTexto[i] == strBusca[j]){
+                i++;
+                j++;
+            }
+        }
+
+        fim = i;
+        j = 0;
+        tamanho_string_busca = fim - inicio;
+
+        if (strlen(strBusca) == tamanho_string_busca){
+            posicoes[k] == inicio+1;
+            k++;
+            posicoes[k] == fim+1;
+            k++;
+            qtdOcorrencias += 1;
+            tamanho_string_busca = 0;
+        }
+    }
 
     return qtdOcorrencias;
 }
