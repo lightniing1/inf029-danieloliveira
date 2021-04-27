@@ -306,6 +306,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
             }
             else
             {
+                //Corrigir aqui!!! Considerar quando os anos são de dois digitos e fazer a subtração das datas corretamente
                 nAnos = data_final_ano - data_inicial_ano;
                 nDias = data_final_dia - data_inicial_dia;
                 nMeses = data_final_mes - data_inicial_mes;
@@ -335,6 +336,9 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
+
+    //Corrigir: Remover os acentos do texto e da letra busca!!
+
     int qtdOcorrencias = 0;
     int i;
 
@@ -377,6 +381,9 @@ int q3(char *texto, char c, int isCaseSensitive)
 
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
+
+//Corrigir: Se o texto/palavra tiver acento, ele considera o acento e a contagem fica errada!
+
 {
     int qtdOcorrencias = 0;
     int i, j, k = 0;
@@ -384,25 +391,27 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     int tamanho_string_busca;
 
     for (i=0; strTexto[i] != '\0'; i++){
-        if (strTexto[i] == strBusca[0]){
+         if (strTexto[i] == strBusca[0]){
             inicio = i;
             while (strTexto[i] == strBusca[j]){
                 i++;
                 j++;
+                fim = i;
             }
         }
 
-        fim = i;
+        //fim = i;
         j = 0;
         tamanho_string_busca = fim - inicio;
 
-        if (strlen(strBusca) == tamanho_string_busca){
-            posicoes[k] == inicio+1;
+        if (strlen(strBusca) == (fim-inicio) ){
+            posicoes[k] = inicio+1;
             k++;
-            posicoes[k] == fim+1;
+            posicoes[k] = fim;
             k++;
             qtdOcorrencias += 1;
             tamanho_string_busca = 0;
+            inicio = 0;
         }
     }
 
@@ -426,7 +435,7 @@ int q5(int num)
 }
 
 /*
- Q5 = ocorrência de um número em outro
+ Q6 = ocorrência de um número em outro
  @objetivo
     Verificar quantidade de vezes da ocorrência de um número em outro
  @entrada

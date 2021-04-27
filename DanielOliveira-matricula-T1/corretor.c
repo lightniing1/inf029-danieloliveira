@@ -37,7 +37,7 @@ int main()
     //testQ1();
     //testQ2();
     //testQ3();
-    testQ4();
+    //testQ4();
     //testQ5();
     //testQ6();
 }
@@ -72,6 +72,7 @@ void testQ1()
 {
     char str[11];
     printf("Test Q1\n");
+    
     strcpy(str, "29/02/2015");
     printf("%d\n", q1(str) == 0);
     strcpy(str, "29/02/2012");
@@ -156,6 +157,7 @@ void testQ4()
     char strBusca[50];
     int posicoes[30];
     int i;
+    
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
@@ -168,7 +170,7 @@ void testQ4()
     printf("%d\n", posicoes[1] == 8);
     printf("%d\n", posicoes[2] == 34);
     printf("%d\n", posicoes[3] == 37);
-    /*
+    
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
@@ -182,7 +184,7 @@ void testQ4()
     printf("%d\n", posicoes[3] == 36);
     printf("%d\n", posicoes[4] == 52);
     printf("%d\n", posicoes[5] == 54);
-    */
+    
 }
 
 void testQ5()
