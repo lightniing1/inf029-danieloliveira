@@ -431,8 +431,6 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 int q5(int num)
 {
 
-    //hum... talvez converter para string, pegar o tamanho e inverter reduzindo o tamanho?
-
     char num_string[50];
     char num_string_invertido[50];
     int tamanho;
