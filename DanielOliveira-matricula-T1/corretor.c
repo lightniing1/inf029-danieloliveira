@@ -38,7 +38,7 @@ int main()
     //testQ2();
     //testQ3();
     //testQ4();
-    //testQ5();
+    testQ5();
     //testQ6();
 }
 

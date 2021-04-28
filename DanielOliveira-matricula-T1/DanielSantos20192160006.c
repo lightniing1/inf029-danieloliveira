@@ -433,6 +433,24 @@ int q5(int num)
 
     //hum... talvez converter para string, pegar o tamanho e inverter reduzindo o tamanho?
 
+    char num_string[50];
+    char num_string_invertido[50];
+    int tamanho;
+    int i;
+
+    itoa(num, num_string, 10);
+    tamanho = strlen(num_string);
+
+    for (i=0; tamanho>=0; tamanho--, i++){
+        if (num_string[tamanho] == '\0'){
+            i--;
+        } else {
+            num_string_invertido[i] = num_string[tamanho];
+        }
+    }
+
+    num = atoi(num_string_invertido);
+
     return num;
 }
 
