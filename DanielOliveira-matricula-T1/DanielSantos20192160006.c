@@ -383,6 +383,7 @@ int q3(char *texto, char c, int isCaseSensitive)
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 //Corrigir: Se o texto/palavra tiver acento, ele considera o acento e a contagem fica errada!
+//letras acentuadas não faz parte da ascii e tem dois bytes.
 
 {
     int qtdOcorrencias = 0;
@@ -464,6 +465,33 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+
+    char num_base_string[50];
+    char num_busca_string[50];
+
+    itoa(numerobase, num_base_string, 10);
+    itoa(numerobusca, num_busca_string, 10);
+
+    int qtdOcorrencias = 0;
+    int i, j, k = 0;
+    int inicio, fim;
+    int tamanho_string_busca;
+
+    tamanho_string_busca = strlen(num_busca_string);
+
+    for (i=0; num_base_string[i] != '\0'; i++){
+        if (num_base_string[i] == num_busca_string[0]){
+            while (num_base_string[i] == num_busca_string[j]){
+                i++;
+                j++;
+                if (j == tamanho_string_busca){
+                    qtdOcorrencias = qtdOcorrencias + 1;
+                    j = 0;
+                }
+            }
+        }
+        j = 0;
+    }
+
     return qtdOcorrencias;
 }
