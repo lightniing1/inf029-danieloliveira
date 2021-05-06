@@ -17,7 +17,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <locale.h>
 
 //renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.c
 #include "DanielSantos20192160006.h"
@@ -33,9 +32,6 @@ void testQ6();
 
 int main()
 {
-    //setlocale( LC_ALL, "portuguese-brazilian" );
-    //printf("áç");
-
     //testSomar();
     //testFatorial();
     testQ1();
@@ -75,7 +71,7 @@ void testFatorial()
 void testQ1()
 {
     char str[11];
-    //printf("Test Q1\n");
+    printf("Test Q1\n");
     
     strcpy(str, "29/02/2015");
     printf("%d\n", q1(str) == 0);
@@ -100,7 +96,7 @@ void testQ2()
     qtdMeses = -1;
     qtdAnos = -1;
 
-    //printf("Test Q2\n");
+    printf("Test Q2\n");
     strcpy(datainicial, "01/06/2015");
     strcpy(datafinal, "01/06/2016");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
@@ -146,7 +142,7 @@ void testQ2()
 void testQ3()
 {
     char str[250];
-    //printf("Test Q3\n");
+    printf("Test Q3\n");
     strcpy(str, "Renato Lima Novais");
     printf("%d\n", q3(str, 'a', 0) == 3);
     printf("%d\n", q3(str, 'b', 0) == 0);
@@ -166,7 +162,7 @@ void testQ4()
     {
         posicoes[i] = -1;
     }
-    //printf("Test Q4\n");
+    printf("Test Q4\n");
     strcpy(strTexto, "Laboratorio de programacao: para ratos de programação");
     //strcpy(strTexto, "para ratos");
     strcpy(strBusca, "rato");
@@ -194,7 +190,7 @@ void testQ4()
 
 void testQ5()
 {
-    //printf("Test Q5\n");
+    printf("Test Q5\n");
     printf("%d\n", q5(345) == 543);
     printf("%d\n", q5(78) == 87);
     printf("%d\n", q5(3) == 3);
@@ -203,7 +199,7 @@ void testQ5()
 
 void testQ6()
 {
-    //printf("Test Q6\n");
+    printf("Test Q6\n");
     printf("%d\n", q6(34567368, 3) == 2);
     printf("%d\n", q6(34567368, 4576) == 0);
     printf("%d\n", q6(3539343, 3) == 4);
