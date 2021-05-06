@@ -32,8 +32,103 @@ void remove_acentos(char *letra_modificada){
     int i;
 
     for (i = 0; letra_modificada[i] != '\0'; i++){
-        if (letra_modificada[i] == 0xC3A1){
-            letra_modificada[i] =  'a';
+        switch(letra_modificada[i])
+        {  
+            case 'á':
+            case 'à':
+            case 'ã':
+            case 'â':
+            case 'ä':
+            {
+                letra_modificada[i] = 'a';
+                break;
+            };
+            case 'é':
+            case 'è':
+            case 'ê':
+            case 'ë':
+            {
+                letra_modificada[i] = 'e';
+                break;
+            };
+            case 'í':
+            case 'ì':
+            case 'î':
+            case 'ï':
+            {
+                letra_modificada[i] = 'i';
+                break;
+            };
+            case 'ó':
+            case 'ò':
+            case 'õ':
+            case 'ô':
+            case 'ö':
+            {
+                letra_modificada[i] = 'o';
+                break;
+            };
+            case 'ú':
+            case 'ù':
+            case 'û':
+            case 'ü':
+            {
+                letra_modificada[i] = 'u';
+                break;
+            };
+            case 'ý':
+            case 'ÿ':
+            {
+                letra_modificada[i] = 'y';
+                break;
+            };  
+            case 'Á':
+            case 'À':
+            case 'Ã':
+            case 'Â':
+            case 'Ä':
+            {
+                letra_modificada[i] = 'A';
+                break;
+            };
+            case 'É':
+            case 'È':
+            case 'Ê':
+            case 'Ë':
+            {
+                letra_modificada[i] = 'E';
+                break;
+            };
+            case 'Í':
+            case 'Ì':
+            case 'Î':
+            case 'Ï':
+            {
+                letra_modificada[i] = 'I';
+                break;
+            };
+            case 'Ó':
+            case 'Ò':
+            case 'Õ':
+            case 'Ô':
+            case 'Ö':
+            {
+                letra_modificada[i] = 'O';
+                break;
+            };
+            case 'Ú':
+            case 'Ù':
+            case 'Û':
+            case 'Ü':
+            {
+                letra_modificada[i] = 'U';
+                break;
+            };
+            case 'Ý':
+            {
+                letra_modificada[i] = 'Y';
+                break;
+            };
         }
     }
 };
@@ -351,7 +446,7 @@ int q3(char *texto, char c, int isCaseSensitive)
     int qtdOcorrencias = 0;
     int i;
 
-    //remove_acentos(texto);
+    remove_acentos(texto);
 
     for (i=0; texto[i] != '\0'; i++){
         if (isCaseSensitive == 0) {
@@ -399,8 +494,8 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     int inicio, fim;
     int tamanho_string_busca;
 
-    //remove_acentos(strTexto);
-    //remove_acentos(strBusca);
+    remove_acentos(strTexto);
+    remove_acentos(strBusca);
 
     for (i=0; strTexto[i] != '\0'; i++){
          if (strTexto[i] == strBusca[0]){
