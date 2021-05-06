@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 
 //renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.c
 #include "DanielSantos20192160006.h"
@@ -32,13 +33,16 @@ void testQ6();
 
 int main()
 {
+    //setlocale( LC_ALL, "portuguese-brazilian" );
+    //printf("áç");
+
     //testSomar();
     //testFatorial();
-    //testQ1();
-    //testQ2();
-    //testQ3();
-    //testQ4();
-    //testQ5();
+    testQ1();
+    testQ2();
+    testQ3();
+    testQ4();
+    testQ5();
     testQ6();
 }
 
@@ -153,15 +157,16 @@ void testQ3()
 
 void testQ4()
 {
-    char strTexto[250];
-    char strBusca[50];
+    unsigned char strTexto[250];
+    unsigned char strBusca[50];
     int posicoes[30];
     int i;
-    
+    /*
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
     }
+    printf("Test Q4\n");
     strcpy(strTexto, "Laboratorio de programacao: para ratos de programação");
     //strcpy(strTexto, "para ratos");
     strcpy(strBusca, "rato");
@@ -170,13 +175,13 @@ void testQ4()
     printf("%d\n", posicoes[1] == 8);
     printf("%d\n", posicoes[2] == 34);
     printf("%d\n", posicoes[3] == 37);
-    
+    */
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
     }
-    strcpy(strTexto, "Olá, o mundo é muito grande. Tem muitas pessoas, e muitos problemas");
-    strcpy(strBusca, "mui");
+    strcpy(strTexto, "á");
+    strcpy(strBusca, "a");
     printf("%d\n", q4(strTexto, strBusca, posicoes) == 3);
     printf("%d\n", posicoes[0] == 16);
     printf("%d\n", posicoes[1] == 18);
@@ -189,6 +194,7 @@ void testQ4()
 
 void testQ5()
 {
+    printf("Test Q5\n");
     printf("%d\n", q5(345) == 543);
     printf("%d\n", q5(78) == 87);
     printf("%d\n", q5(3) == 3);
@@ -197,6 +203,7 @@ void testQ5()
 
 void testQ6()
 {
+    printf("Test Q6\n");
     printf("%d\n", q6(34567368, 3) == 2);
     printf("%d\n", q6(34567368, 4576) == 0);
     printf("%d\n", q6(3539343, 3) == 4);

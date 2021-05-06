@@ -24,7 +24,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "DanielSantos20192160006.h"
+
+void remove_acentos(char *letra_modificada){
+    
+    int i;
+
+    for (i = 0; letra_modificada[i] != '\0'; i++){
+        if (letra_modificada[i] == 0xC3A1){
+            letra_modificada[i] =  'a';
+        }
+    }
+};
 
 /*
 ## função utilizada para testes  ##
@@ -342,6 +354,8 @@ int q3(char *texto, char c, int isCaseSensitive)
     int qtdOcorrencias = 0;
     int i;
 
+    //remove_acentos(texto);
+
     for (i=0; texto[i] != '\0'; i++){
         if (isCaseSensitive == 0) {
             if (c >= 'a' && c <= 'z'){
@@ -391,6 +405,9 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     int inicio, fim;
     int tamanho_string_busca;
 
+    //remove_acentos(strTexto);
+    //remove_acentos(strBusca);
+
     for (i=0; strTexto[i] != '\0'; i++){
          if (strTexto[i] == strBusca[0]){
             inicio = i;
@@ -437,7 +454,8 @@ int q5(int num)
     int tamanho;
     int i;
 
-    itoa(num, num_string, 10);
+    //itoa(num, num_string, 10);
+    sprintf(num_string, "%d", num);
     tamanho = strlen(num_string);
 
     for (i=0; tamanho>=0; tamanho--, i++){
@@ -469,8 +487,11 @@ int q6(int numerobase, int numerobusca)
     char num_base_string[50];
     char num_busca_string[50];
 
-    itoa(numerobase, num_base_string, 10);
-    itoa(numerobusca, num_busca_string, 10);
+    //itoa(numerobase, num_base_string, 10);
+    //itoa(numerobusca, num_busca_string, 10);
+
+    sprintf(num_base_string, "%d", numerobase);
+    sprintf(num_busca_string, "%d", numerobusca);
 
     int qtdOcorrencias = 0;
     int i, j, k = 0;
