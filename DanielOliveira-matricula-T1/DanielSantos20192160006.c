@@ -27,6 +27,7 @@
 #include <locale.h>
 #include "DanielSantos20192160006.h"
 
+/*
 void remove_acentos(char *letra_modificada){
     
     int i;
@@ -132,7 +133,7 @@ void remove_acentos(char *letra_modificada){
         }
     }
 };
-
+*/
 /*
 ## função utilizada para testes  ##
 
@@ -446,7 +447,7 @@ int q3(char *texto, char c, int isCaseSensitive)
     int qtdOcorrencias = 0;
     int i;
 
-    remove_acentos(texto);
+    //remove_acentos(texto);
 
     for (i=0; texto[i] != '\0'; i++){
         if (isCaseSensitive == 0) {
@@ -494,8 +495,8 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     int inicio, fim;
     int tamanho_string_busca;
 
-    remove_acentos(strTexto);
-    remove_acentos(strBusca);
+    //remove_acentos(strTexto);
+    //remove_acentos(strBusca);
 
     for (i=0; strTexto[i] != '\0'; i++){
          if (strTexto[i] == strBusca[0]){
