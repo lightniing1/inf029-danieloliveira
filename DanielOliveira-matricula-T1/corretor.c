@@ -180,8 +180,8 @@ void testQ4()
     {
         posicoes[i] = -1;
     }
-    strcpy(strTexto, "á");
-    strcpy(strBusca, "a");
+    strcpy(strTexto, "Olá, o mundo é muito grande. Tem muitas pessoas, e muitos problemas");
+    strcpy(strBusca, "mui");
     printf("%d\n", q4(strTexto, strBusca, posicoes) == 3);
     printf("%d\n", posicoes[0] == 16);
     printf("%d\n", posicoes[1] == 18);

@@ -318,7 +318,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
             }
             else
             {
-                //Corrigir aqui!!! Considerar quando os anos são de dois digitos e fazer a subtração das datas corretamente
+                //Verificar isso depois
                 nAnos = data_final_ano - data_inicial_ano;
                 nDias = data_final_dia - data_inicial_dia;
                 nMeses = data_final_mes - data_inicial_mes;
@@ -348,9 +348,6 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-
-    //Corrigir: Remover os acentos do texto e da letra busca!!
-
     int qtdOcorrencias = 0;
     int i;
 
@@ -395,9 +392,6 @@ int q3(char *texto, char c, int isCaseSensitive)
 
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
-
-//Corrigir: Se o texto/palavra tiver acento, ele considera o acento e a contagem fica errada!
-//letras acentuadas não faz parte da ascii e tem dois bytes.
 
 {
     int qtdOcorrencias = 0;
