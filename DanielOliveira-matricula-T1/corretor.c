@@ -161,7 +161,7 @@ void testQ4()
     unsigned char strBusca[50];
     int posicoes[30];
     int i;
-    /*
+    
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
@@ -175,12 +175,12 @@ void testQ4()
     printf("%d\n", posicoes[1] == 8);
     printf("%d\n", posicoes[2] == 34);
     printf("%d\n", posicoes[3] == 37);
-    */
+    
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
     }
-    strcpy(strTexto, "Olá, o mundo é muito grande. Tem muitas pessoas, e muitos problemas");
+    strcpy(strTexto, "Ola, o mundo e muito grande. Tem muitas pessoas, e muitos problemas");
     strcpy(strBusca, "mui");
     printf("%d\n", q4(strTexto, strBusca, posicoes) == 3);
     printf("%d\n", posicoes[0] == 16);
