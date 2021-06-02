@@ -612,4 +612,10 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 void finalizar()
 {
+    int i = 10;
+    for (i=0; i<10; i++){
+        if (vetor_principal[i] != NULL){
+            free(vetor_principal[i]);
+        }
+    }
 }
