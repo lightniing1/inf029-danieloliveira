@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-int potencia(long int base, long int expoente){
+int potencia(int base, int expoente){
 
     if (base <= 0){
         return 0;
